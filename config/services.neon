@@ -1,0 +1,12 @@
+services:
+    - Rector\TypePerfect\NodeTraverser\SimpleCallableNodeTraverser
+    - Rector\TypePerfect\NodeFinder\ClassMethodNodeFinder
+    - Rector\TypePerfect\NodeFinder\MethodCallNodeFinder
+    - Rector\TypePerfect\NodeFinder\ReturnNodeFinder
+    - Rector\TypePerfect\PhpDoc\ApiDocStmtAnalyzer
+    - Rector\TypePerfect\Printer\NodeComparator
+    - Rector\TypePerfect\Reflection\ReflectionParser
+    - Rector\TypePerfect\Reflection\MethodNodeAnalyser
+    - Rector\TypePerfect\Matcher\Collector\PublicClassMethodMatcher
+    - Rector\TypePerfect\Matcher\ClassMethodCallReferenceResolver
+    - Rector\TypePerfect\Printer\CollectorMetadataPrinter

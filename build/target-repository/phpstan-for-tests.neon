@@ -1,0 +1,9 @@
+# this config is only for tests, it verifies all the rules are runnable
+includes:
+    - vendor/tomasvotruba/type-perfect/config/rules.neon
+
+parameters:
+    level: 4
+
+    ignoreErrors:
+        - '#Class method "getName\(\)" is never used#'

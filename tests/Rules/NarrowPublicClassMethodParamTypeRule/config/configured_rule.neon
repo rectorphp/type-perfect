@@ -1,0 +1,21 @@
+includes:
+    - ../../../../config/services.neon
+
+rules:
+    - Rector\TypePerfect\Rules\NarrowPublicClassMethodParamTypeByCallerTypeRule
+
+services:
+    -
+        class: Rector\TypePerfect\Collector\ClassMethod\PublicClassMethodParamTypesCollector
+        tags:
+            - phpstan.collector
+
+    -
+        class: Rector\TypePerfect\Collector\MethodCall\MethodCallArgTypesCollector
+        tags:
+            - phpstan.collector
+
+    -
+        class: Rector\TypePerfect\Collector\MethodCallableNode\MethodCallableCollector
+        tags:
+            - phpstan.collector

@@ -1,0 +1,2 @@
+rules:
+    - Rector\TypePerfect\Rules\NoReturnFalseInNonBoolClassMethodRule

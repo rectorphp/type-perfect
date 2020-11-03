@@ -1,0 +1,5 @@
+includes:
+    - ../../../../config/services.neon
+
+rules:
+    - Rector\TypePerfect\Rules\RequireSpecificReturnTypeOverAbstractRule
