@@ -16,7 +16,7 @@ use Webmozart\Assert\Assert;
 
 final class MethodCallNodeFinder
 {
-    private NodeFinder $nodeFinder;
+    private readonly NodeFinder $nodeFinder;
 
     public function __construct(
         private readonly ReflectionParser $reflectionParser,

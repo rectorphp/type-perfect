@@ -20,7 +20,7 @@ final class NoMixedPropertyFetcherRule implements Rule
     /**
      * @var string
      */
-    public const ERROR_MESSAGE = 'Anonymous variables in a "%s->..." property fetch can lead to false dead property. Make sure the variable type is known';
+    public const ERROR_MESSAGE = 'Mixed property fetch in a "%s->..." can skip important errors. Make sure the type is known';
 
     public function __construct(
         private readonly Standard $standard,

@@ -1,12 +1,13 @@
 {
-    "name": "tomasvotruba/type-perfect",
+    "name": "rector/type-perfect",
     "type": "phpstan-extension",
     "description": "Next level type declaration checks",
     "license": "MIT",
     "require": {
-        "php": "^7.2|^8.0",
+        "php": "^8.2",
         "phpstan/phpstan": "^1.11",
-        "webmozart/assert": "^1.11"
+        "webmozart/assert": "^1.11",
+        "nette/utils": "^4.0"
     },
     "require-dev": {
         "nikic/php-parser": "^4.19",
@@ -31,7 +32,7 @@
     "extra": {
         "phpstan": {
             "includes": [
-                "config/services.neon",
+                "config/extension.neon",
                 "config/rules.neon"
             ]
         }

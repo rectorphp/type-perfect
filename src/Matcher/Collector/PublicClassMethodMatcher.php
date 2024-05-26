@@ -11,7 +11,7 @@ use PHPStan\Reflection\ClassReflection;
 final class PublicClassMethodMatcher
 {
     /**
-     * @var array<class-string>
+     * @var string[]
      */
     private const SKIPPED_TYPES = ['PHPUnit\Framework\TestCase', 'Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator'];
 

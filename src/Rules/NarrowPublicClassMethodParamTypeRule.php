@@ -14,10 +14,11 @@ use PHPStan\Rules\RuleErrorBuilder;
 use Rector\TypePerfect\Collector\ClassMethod\PublicClassMethodParamTypesCollector;
 use Rector\TypePerfect\Collector\MethodCall\MethodCallArgTypesCollector;
 use Rector\TypePerfect\Collector\MethodCallableNode\MethodCallableCollector;
+use Rector\TypePerfect\Configuration;
 use Rector\TypePerfect\Enum\Types\ResolvedTypes;
 
 /**
- * @see \Rector\TypePerfect\Tests\Rules\NarrowPublicClassMethodParamTypeByCallerTypeRule\NarrowPublicClassMethodParamTypeByCallerTypeRuleTest
+ * @see \Rector\TypePerfect\Tests\Rules\NarrowPublicClassMethodParamTypeRule\NarrowPublicClassMethodParamTypeRuleTest
  *
  * @implements Rule<CollectedDataNode>
  */
@@ -27,6 +28,11 @@ final class NarrowPublicClassMethodParamTypeRule implements Rule
      * @var string
      */
     public const ERROR_MESSAGE = 'Parameters should have "%s" types as the only types passed to this method';
+
+    public function __construct(
+        private readonly Configuration $configuration
+    ) {
+    }
 
     /**
      * @return class-string<Node>
@@ -42,6 +48,10 @@ final class NarrowPublicClassMethodParamTypeRule implements Rule
      */
     public function processNode(Node $node, Scope $scope): array
     {
+        if (! $this->configuration->isNarrowEnabled()) {
+            return [];
+        }
+
         $publicClassMethodCollector = $node->get(PublicClassMethodParamTypesCollector::class);
 
         $classMethodReferenceToArgTypes = $this->resolveClassMethodReferenceToArgTypes($node);

@@ -24,6 +24,7 @@ use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 use PHPStan\Type\UnionType;
 use PHPStan\Type\VerbosityLevel;
+use Rector\TypePerfect\Configuration;
 use Rector\TypePerfect\NodeFinder\ClassMethodNodeFinder;
 use Rector\TypePerfect\NodeFinder\MethodCallNodeFinder;
 
@@ -39,6 +40,7 @@ final class NarrowPrivateClassMethodParamTypeRule implements Rule
     public const ERROR_MESSAGE = 'Parameter %d should use "%s" type as the only type passed to this method';
 
     public function __construct(
+        private readonly Configuration $configuration,
         private readonly MethodCallNodeFinder $methodCallNodeFinder,
         private readonly ClassMethodNodeFinder $classMethodNodeFinder
     ) {
@@ -58,6 +60,10 @@ final class NarrowPrivateClassMethodParamTypeRule implements Rule
      */
     public function processNode(Node $node, Scope $scope): array
     {
+        if (! $this->configuration->isNarrowEnabled()) {
+            return [];
+        }
+
         $args = $node->getArgs();
         if ($args === []) {
             return [];

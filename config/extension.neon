@@ -1,4 +1,24 @@
+parametersSchema:
+    # see https://doc.nette.org/en/schema for configuration
+    type_perfect: structure([
+        narrow: bool()
+        no_mixed: bool()
+        no_falsy_return: bool()
+    ])
+
+# default parameters
+parameters:
+    type_perfect:
+        narrow: false
+        no_mixed: false
+        no_falsy_return: false
+
 services:
+    -
+        factory: Rector\TypePerfect\Configuration
+        arguments:
+            - %type_perfect%
+
     - Rector\TypePerfect\NodeTraverser\SimpleCallableNodeTraverser
     - Rector\TypePerfect\NodeFinder\ClassMethodNodeFinder
     - Rector\TypePerfect\NodeFinder\MethodCallNodeFinder

@@ -17,6 +17,6 @@ jobs:
             -   run: composer config --no-plugins allow-plugins.phpstan/extension-installer true
 
             -   run: composer require phpstan/phpstan phpstan/extension-installer --dev
-            -   run: composer require tomasvotruba/type-perfect:dev-main --dev
+            -   run: composer require rector/type-perfect:dev-main --dev
 
 

@@ -12,6 +12,7 @@ use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\MixedType;
+use Rector\TypePerfect\Configuration;
 
 /**
  * @see \Rector\TypePerfect\Tests\Rules\NoMixedMethodCallerRule\NoMixedMethodCallerRuleTest
@@ -22,10 +23,11 @@ final class NoMixedMethodCallerRule implements Rule
     /**
      * @var string
      */
-    public const ERROR_MESSAGE = 'Mixed variable in a `%s->...()` method call can lead to false dead methods. Make sure the variable type is known';
+    public const ERROR_MESSAGE = 'Mixed variable in a `%s->...()` can skip important errors. Make sure the type is known';
 
     public function __construct(
         private readonly Standard $printerStandard,
+        private readonly Configuration $configuration,
     ) {
     }
 
@@ -43,6 +45,10 @@ final class NoMixedMethodCallerRule implements Rule
      */
     public function processNode(Node $node, Scope $scope): array
     {
+        if (! $this->configuration->isNoMixedEnabled()) {
+            return [];
+        }
+
         $callerType = $scope->getType($node->var);
         if (! $callerType instanceof MixedType) {
             return [];

@@ -11,7 +11,9 @@ use PhpParser\Node\Stmt\Return_;
 use PhpParser\NodeFinder;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\Constant\ConstantBooleanType;
+use Rector\TypePerfect\Configuration;
 
 /**
  * @implements Rule<ClassMethod>
@@ -27,6 +29,7 @@ final class NoReturnFalseInNonBoolClassMethodRule implements Rule
     private readonly NodeFinder $nodeFinder;
 
     public function __construct(
+        private readonly Configuration $configuration,
     ) {
         $this->nodeFinder = new NodeFinder();
     }
@@ -41,10 +44,14 @@ final class NoReturnFalseInNonBoolClassMethodRule implements Rule
 
     /**
      * @param ClassMethod $node
-     * @retur string[]
+     * @retur RuleError[]
      */
     public function processNode(Node $node, Scope $scope): array
     {
+        if (! $this->configuration->isNoMixedEnabled()) {
+            return [];
+        }
+
         if ($node->stmts === null) {
             return [];
         }
@@ -70,7 +77,12 @@ final class NoReturnFalseInNonBoolClassMethodRule implements Rule
                 continue;
             }
 
-            return [self::ERROR_MESSAGE];
+            $ruleError = RuleErrorBuilder::message(self::ERROR_MESSAGE)
+                ->line($return->getEndLine())
+                ->identifier('type_perfect.no_return_false')
+                ->build();
+
+            return [$ruleError];
         }
 
         return [];

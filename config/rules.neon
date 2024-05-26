@@ -14,7 +14,6 @@ rules:
     - Rector\TypePerfect\Rules\NoArrayAccessOnObjectRule
     - Rector\TypePerfect\Rules\NoIssetOnObjectRule
 
-
 services:
     # for NarrowPublicClassMethodParamTypeByCallerTypeRule
     -
