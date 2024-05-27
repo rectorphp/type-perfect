@@ -53,7 +53,6 @@ final class NoArrayAccessOnObjectRule implements Rule
 
         $ruleError = RuleErrorBuilder::message(self::ERROR_MESSAGE)
             ->line($node->getLine())
-            ->identifier('type_perfect.no_array_access_on_object')
             ->build();
 
         return [$ruleError];

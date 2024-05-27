@@ -64,7 +64,6 @@ final class NoMixedMethodCallerRule implements Rule
 
         $ruleError = RuleErrorBuilder::message($errorMessage)
             ->line($node->getLine())
-            ->identifier('type_perfect.no_mixed_method_caller')
             ->build();
 
         return [$ruleError];

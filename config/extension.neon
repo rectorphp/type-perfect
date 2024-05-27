@@ -30,3 +30,33 @@ services:
     - Rector\TypePerfect\Matcher\Collector\PublicClassMethodMatcher
     - Rector\TypePerfect\Matcher\ClassMethodCallReferenceResolver
     - Rector\TypePerfect\Printer\CollectorMetadataPrinter
+
+    # for NarrowPublicClassMethodParamTypeByCallerTypeRule
+    -
+        class: Rector\TypePerfect\Collector\ClassMethod\PublicClassMethodParamTypesCollector
+        tags: [phpstan.collector]
+
+    -
+        class: Rector\TypePerfect\Collector\MethodCall\MethodCallArgTypesCollector
+        tags: [phpstan.collector]
+
+    -
+        class: Rector\TypePerfect\Collector\MethodCallableNode\MethodCallableCollector
+        tags:
+            - phpstan.collector
+
+# these rule focus on the whole-project analysis, see https://phpstan.org/developing-extensions/collectors
+rules:
+    # narrow types
+    - Rector\TypePerfect\Rules\NarrowPublicClassMethodParamTypeRule
+    - Rector\TypePerfect\Rules\NarrowPrivateClassMethodParamTypeRule
+    - Rector\TypePerfect\Rules\NoReturnFalseInNonBoolClassMethodRule
+
+    # no mixed
+    - Rector\TypePerfect\Rules\NoMixedPropertyFetcherRule
+    - Rector\TypePerfect\Rules\NoMixedMethodCallerRule
+
+    # simple - always enable these
+    - Rector\TypePerfect\Rules\ForbiddenParamTypeRemovalRule
+    - Rector\TypePerfect\Rules\NoArrayAccessOnObjectRule
+    - Rector\TypePerfect\Rules\NoIssetOnObjectRule

@@ -37,7 +37,7 @@ final class NoReturnFalseInNonBoolClassMethodRuleTest extends RuleTestCase
     public static function getAdditionalConfigFiles(): array
     {
         return [
-            __DIR__ . '/config/configured_rule.neon',
+            __DIR__ . '/../../../config/extension.neon',
         ];
     }
 

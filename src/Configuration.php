@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Rector\TypePerfect;
 
-final readonly class Configuration
+final class Configuration
 {
     /**
      * @param array<string, mixed> $parameters
@@ -12,6 +12,12 @@ final readonly class Configuration
     public function __construct(
         private array $parameters
     ) {
+        // enabed by default in tests
+        if (defined('PHPUNIT_COMPOSER_INSTALL')) {
+            $this->parameters['narrow'] = true;
+            $this->parameters['no_mixed'] = true;
+            $this->parameters['no_falsy_return'] = true;
+        }
     }
 
     public function isNarrowEnabled(): bool

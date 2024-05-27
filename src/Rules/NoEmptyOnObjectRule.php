@@ -41,7 +41,6 @@ final class NoEmptyOnObjectRule implements Rule
 
         $ruleError = RuleErrorBuilder::message(self::ERROR_MESSAGE)
             ->line($node->getLine())
-            ->identifier('type_perfect.no_empty_on_object')
             ->build();
 
         return [$ruleError];

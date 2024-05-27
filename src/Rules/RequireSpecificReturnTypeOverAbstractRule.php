@@ -19,6 +19,7 @@ use Rector\TypePerfect\Reflection\MethodNodeAnalyser;
 
 /**
  * @see \Rector\TypePerfect\Tests\Rules\RequireSpecificReturnTypeOverAbstractRule\RequireSpecificReturnTypeOverAbstractRuleTest
+ *
  * @implements Rule<ClassMethod>
  */
 final class RequireSpecificReturnTypeOverAbstractRule implements Rule

@@ -1,5 +1,5 @@
 includes:
-    - ../../../../config/services.neon
+    - ../../../../config/extension.neon
 
 rules:
     - Rector\TypePerfect\Rules\ForbiddenParamTypeRemovalRule

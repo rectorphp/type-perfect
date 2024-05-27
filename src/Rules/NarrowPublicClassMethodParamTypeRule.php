@@ -78,7 +78,6 @@ final class NarrowPublicClassMethodParamTypeRule implements Rule
                 $ruleErrors[] = RuleErrorBuilder::message($errorMessage)
                     ->file($filePath)
                     ->line($line)
-                    ->identifier('type_perfect.narrow_public_param_type')
                     ->build();
             }
         }
