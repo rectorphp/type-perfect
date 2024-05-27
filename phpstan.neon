@@ -1,6 +1,5 @@
 includes:
     - config/extension.neon
-    - config/rules.neon
 
 parameters:
     level: 8
