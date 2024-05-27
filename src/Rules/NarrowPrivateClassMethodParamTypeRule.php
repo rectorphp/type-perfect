@@ -56,7 +56,7 @@ final class NarrowPrivateClassMethodParamTypeRule implements Rule
 
     /**
      * @param MethodCall $node
-     * @return string[]
+     * @return RuleError[]
      */
     public function processNode(Node $node, Scope $scope): array
     {
