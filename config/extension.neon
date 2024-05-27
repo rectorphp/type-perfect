@@ -51,6 +51,7 @@ rules:
     - Rector\TypePerfect\Rules\NarrowPublicClassMethodParamTypeRule
     - Rector\TypePerfect\Rules\NarrowPrivateClassMethodParamTypeRule
     - Rector\TypePerfect\Rules\NoReturnFalseInNonBoolClassMethodRule
+    - Rector\TypePerfect\Rules\RequireSpecificReturnTypeOverAbstractRule
 
     # no mixed
     - Rector\TypePerfect\Rules\NoMixedPropertyFetcherRule
