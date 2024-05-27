@@ -11,8 +11,6 @@ use PhpParser\Node\Stmt\Return_;
 use PhpParser\NodeFinder;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
-use PHPStan\Rules\RuleError;
-use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use Rector\TypePerfect\Configuration;
 
@@ -45,7 +43,7 @@ final class NoReturnFalseInNonBoolClassMethodRule implements Rule
 
     /**
      * @param ClassMethod $node
-     * @return RuleError[]
+     * @return string[]
      */
     public function processNode(Node $node, Scope $scope): array
     {
@@ -78,11 +76,9 @@ final class NoReturnFalseInNonBoolClassMethodRule implements Rule
                 continue;
             }
 
-            $ruleError = RuleErrorBuilder::message(self::ERROR_MESSAGE)
-                ->line($node->getLine())
-                ->build();
-
-            return [$ruleError];
+            return [
+                self::ERROR_MESSAGE,
+            ];
         }
 
         return [];

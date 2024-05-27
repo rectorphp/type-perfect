@@ -10,8 +10,6 @@ use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\Empty_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
-use PHPStan\Rules\RuleError;
-use PHPStan\Rules\RuleErrorBuilder;
 
 /**
  * @implements Rule<Empty_>
@@ -30,7 +28,7 @@ final class NoEmptyOnObjectRule implements Rule
 
     /**
      * @param Empty_ $node
-     * @return RuleError[]
+     * @return string[]
      */
     public function processNode(Node $node, Scope $scope): array
     {
@@ -39,11 +37,9 @@ final class NoEmptyOnObjectRule implements Rule
             return [];
         }
 
-        $ruleError = RuleErrorBuilder::message(self::ERROR_MESSAGE)
-            ->line($node->getLine())
-            ->build();
-
-        return [$ruleError];
+        return [
+            self::ERROR_MESSAGE,
+        ];
     }
 
     private function shouldSkipVariable(Expr $expr, Scope $scope): bool

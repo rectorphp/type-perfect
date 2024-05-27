@@ -8,8 +8,6 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\ArrayDimFetch;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
-use PHPStan\Rules\RuleError;
-use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\ObjectType;
 
 /**
@@ -38,7 +36,7 @@ final class NoArrayAccessOnObjectRule implements Rule
 
     /**
      * @param ArrayDimFetch $node
-     * @return RuleError[]
+     * @return string[]
      */
     public function processNode(Node $node, Scope $scope): array
     {
@@ -51,11 +49,9 @@ final class NoArrayAccessOnObjectRule implements Rule
             return [];
         }
 
-        $ruleError = RuleErrorBuilder::message(self::ERROR_MESSAGE)
-            ->line($node->getLine())
-            ->build();
-
-        return [$ruleError];
+        return [
+            self::ERROR_MESSAGE,
+        ];
     }
 
     private function isAllowedObjectType(ObjectType $objectType): bool

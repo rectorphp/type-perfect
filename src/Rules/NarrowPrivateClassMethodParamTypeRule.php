@@ -56,7 +56,7 @@ final class NarrowPrivateClassMethodParamTypeRule implements Rule
 
     /**
      * @param MethodCall $node
-     * @return RuleError[]
+     * @return string[]
      */
     public function processNode(Node $node, Scope $scope): array
     {
@@ -115,13 +115,13 @@ final class NarrowPrivateClassMethodParamTypeRule implements Rule
                 continue;
             }
 
-            $paramErrorMessage = $this->validateParam($param, $position, $arg->value, $scope);
-            if (! $paramErrorMessage instanceof RuleError) {
+            $paramRuleError = $this->validateParam($param, $position, $arg->value, $scope);
+            if ($paramRuleError === null) {
                 continue;
             }
 
             // @todo test double failed type
-            $errorMessages[] = $paramErrorMessage;
+            $errorMessages[] = $paramRuleError;
         }
 
         return $errorMessages;

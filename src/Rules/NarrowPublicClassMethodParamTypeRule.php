@@ -53,7 +53,6 @@ final class NarrowPublicClassMethodParamTypeRule implements Rule
         }
 
         $publicClassMethodCollector = $node->get(PublicClassMethodParamTypesCollector::class);
-
         $classMethodReferenceToArgTypes = $this->resolveClassMethodReferenceToArgTypes($node);
 
         $ruleErrors = [];
@@ -74,8 +73,7 @@ final class NarrowPublicClassMethodParamTypeRule implements Rule
                     continue;
                 }
 
-                $errorMessage = sprintf(self::ERROR_MESSAGE, $uniqueCollectedArgTypesString);
-                $ruleErrors[] = RuleErrorBuilder::message($errorMessage)
+                $ruleErrors[] = RuleErrorBuilder::message(sprintf(self::ERROR_MESSAGE, $uniqueCollectedArgTypesString))
                     ->file($filePath)
                     ->line($line)
                     ->build();

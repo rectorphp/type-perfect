@@ -10,8 +10,6 @@ use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\Isset_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
-use PHPStan\Rules\RuleError;
-use PHPStan\Rules\RuleErrorBuilder;
 
 /**
  * @see \Rector\TypePerfect\Tests\Rules\NoIssetOnObjectRule\NoIssetOnObjectRuleTest
@@ -32,7 +30,7 @@ final class NoIssetOnObjectRule implements Rule
     /**
      * @param Isset_ $node
      *
-     * @return RuleError[]
+     * @return string[]
      */
     public function processNode(Node $node, Scope $scope): array
     {
@@ -41,11 +39,9 @@ final class NoIssetOnObjectRule implements Rule
                 continue;
             }
 
-            $ruleError = RuleErrorBuilder::message(self::ERROR_MESSAGE)
-                ->line($node->getLine())
-                ->build();
-
-            return [$ruleError];
+            return [
+                self::ERROR_MESSAGE,
+            ];
         }
 
         return [];

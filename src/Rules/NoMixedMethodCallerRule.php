@@ -9,7 +9,6 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\PrettyPrinter\Standard;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
-use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\MixedType;
 use Rector\TypePerfect\Configuration;
@@ -60,12 +59,8 @@ final class NoMixedMethodCallerRule implements Rule
 
         $printedMethodCall = $this->printerStandard->prettyPrintExpr($node->var);
 
-        $errorMessage = sprintf(self::ERROR_MESSAGE, $printedMethodCall);
-
-        $ruleError = RuleErrorBuilder::message($errorMessage)
-            ->line($node->getLine())
-            ->build();
-
-        return [$ruleError];
+        return [
+            sprintf(self::ERROR_MESSAGE, $printedMethodCall),
+        ];
     }
 }
