@@ -17,7 +17,7 @@ use Rector\TypePerfect\Configuration;
 /**
  * @implements Rule<ClassMethod>
  */
-final class NoReturnFalseInNonBoolClassMethodRule implements Rule
+final readonly class NoReturnFalseInNonBoolClassMethodRule implements Rule
 {
     /**
      * @api
@@ -25,10 +25,10 @@ final class NoReturnFalseInNonBoolClassMethodRule implements Rule
      */
     public const ERROR_MESSAGE = 'Returning false in non return bool class method. Use null with type|null instead or add bool return type';
 
-    private readonly NodeFinder $nodeFinder;
+    private NodeFinder $nodeFinder;
 
     public function __construct(
-        private readonly Configuration $configuration,
+        private Configuration $configuration,
     ) {
         $this->nodeFinder = new NodeFinder();
     }

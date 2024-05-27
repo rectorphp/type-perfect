@@ -12,10 +12,10 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
 use Rector\TypePerfect\Reflection\ReflectionParser;
 
-final class ClassMethodNodeFinder
+final readonly class ClassMethodNodeFinder
 {
     public function __construct(
-        private readonly ReflectionParser $reflectionParser,
+        private ReflectionParser $reflectionParser,
     ) {
     }
 

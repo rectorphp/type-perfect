@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Rector\TypePerfect\ValueObject;
 
-final class MethodCallReference
+final readonly class MethodCallReference
 {
     public function __construct(
-        private readonly string $class,
-        private readonly string $method
+        private string $class,
+        private string $method
     ) {
     }
 

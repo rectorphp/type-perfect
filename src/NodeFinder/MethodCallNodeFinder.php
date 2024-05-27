@@ -14,13 +14,13 @@ use Rector\TypePerfect\Printer\NodeComparator;
 use Rector\TypePerfect\Reflection\ReflectionParser;
 use Webmozart\Assert\Assert;
 
-final class MethodCallNodeFinder
+final readonly class MethodCallNodeFinder
 {
-    private readonly NodeFinder $nodeFinder;
+    private NodeFinder $nodeFinder;
 
     public function __construct(
-        private readonly ReflectionParser $reflectionParser,
-        private readonly NodeComparator $nodeComparator,
+        private ReflectionParser $reflectionParser,
+        private NodeComparator $nodeComparator,
     ) {
         $this->nodeFinder = new NodeFinder();
     }

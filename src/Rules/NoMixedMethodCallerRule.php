@@ -17,7 +17,7 @@ use Rector\TypePerfect\Configuration;
  * @see \Rector\TypePerfect\Tests\Rules\NoMixedMethodCallerRule\NoMixedMethodCallerRuleTest
  * @implements Rule<MethodCall>
  */
-final class NoMixedMethodCallerRule implements Rule
+final readonly class NoMixedMethodCallerRule implements Rule
 {
     /**
      * @var string
@@ -25,8 +25,8 @@ final class NoMixedMethodCallerRule implements Rule
     public const ERROR_MESSAGE = 'Mixed variable in a `%s->...()` can skip important errors. Make sure the type is known';
 
     public function __construct(
-        private readonly Standard $printerStandard,
-        private readonly Configuration $configuration,
+        private Standard $printerStandard,
+        private Configuration $configuration,
     ) {
     }
 

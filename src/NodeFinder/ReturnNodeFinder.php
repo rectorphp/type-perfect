@@ -12,10 +12,10 @@ use PhpParser\Node\Stmt\Return_;
 use PhpParser\NodeTraverser;
 use Rector\TypePerfect\NodeTraverser\SimpleCallableNodeTraverser;
 
-final class ReturnNodeFinder
+final readonly class ReturnNodeFinder
 {
     public function __construct(
-        private readonly SimpleCallableNodeTraverser $simpleCallableNodeTraverser
+        private SimpleCallableNodeTraverser $simpleCallableNodeTraverser
     ) {
     }
 

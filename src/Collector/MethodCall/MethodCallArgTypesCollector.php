@@ -15,11 +15,11 @@ use Rector\TypePerfect\ValueObject\MethodCallReference;
 /**
  * @implements Collector<MethodCall, array<string>|null>
  */
-final class MethodCallArgTypesCollector implements Collector
+final readonly class MethodCallArgTypesCollector implements Collector
 {
     public function __construct(
-        private readonly ClassMethodCallReferenceResolver $classMethodCallReferenceResolver,
-        private readonly CollectorMetadataPrinter $collectorMetadataPrinter,
+        private ClassMethodCallReferenceResolver $classMethodCallReferenceResolver,
+        private CollectorMetadataPrinter $collectorMetadataPrinter,
     ) {
     }
 

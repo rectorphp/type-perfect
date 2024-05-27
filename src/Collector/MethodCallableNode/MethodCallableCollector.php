@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Rector\TypePerfect\Collector\MethodCallableNode;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Collectors\Collector;
 use PHPStan\Node\MethodCallableNode;
@@ -19,10 +18,10 @@ use Rector\TypePerfect\ValueObject\MethodCallReference;
  *
  * @see https://github.com/phpstan/phpstan-src/blob/511c1e435fb43b8eb0ac310e6aa3230147963790/src/Analyser/NodeScopeResolver.php#L1936
  */
-final class MethodCallableCollector implements Collector
+final readonly class MethodCallableCollector implements Collector
 {
     public function __construct(
-        private readonly ClassMethodCallReferenceResolver $classMethodCallReferenceResolver,
+        private ClassMethodCallReferenceResolver $classMethodCallReferenceResolver,
     ) {
     }
 

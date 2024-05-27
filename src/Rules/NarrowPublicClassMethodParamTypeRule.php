@@ -22,7 +22,7 @@ use Rector\TypePerfect\Enum\Types\ResolvedTypes;
  *
  * @implements Rule<CollectedDataNode>
  */
-final class NarrowPublicClassMethodParamTypeRule implements Rule
+final readonly class NarrowPublicClassMethodParamTypeRule implements Rule
 {
     /**
      * @var string
@@ -30,7 +30,7 @@ final class NarrowPublicClassMethodParamTypeRule implements Rule
     public const ERROR_MESSAGE = 'Parameters should have "%s" types as the only types passed to this method';
 
     public function __construct(
-        private readonly Configuration $configuration
+        private Configuration $configuration
     ) {
     }
 

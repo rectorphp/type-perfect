@@ -7,10 +7,10 @@ namespace Rector\TypePerfect\Printer;
 use PhpParser\Node;
 use PhpParser\PrettyPrinter\Standard;
 
-final class NodeComparator
+final readonly class NodeComparator
 {
     public function __construct(
-        private readonly Standard $standard
+        private Standard $standard
     ) {
     }
 

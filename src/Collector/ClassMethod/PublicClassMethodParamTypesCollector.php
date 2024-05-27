@@ -16,12 +16,12 @@ use Rector\TypePerfect\Printer\CollectorMetadataPrinter;
 /**
  * @implements Collector<ClassMethod, array{class-string, string, string, int}|null>
  */
-final class PublicClassMethodParamTypesCollector implements Collector
+final readonly class PublicClassMethodParamTypesCollector implements Collector
 {
     public function __construct(
-        private readonly ApiDocStmtAnalyzer $apiDocStmtAnalyzer,
-        private readonly PublicClassMethodMatcher $publicClassMethodMatcher,
-        private readonly CollectorMetadataPrinter $collectorMetadataPrinter
+        private ApiDocStmtAnalyzer $apiDocStmtAnalyzer,
+        private PublicClassMethodMatcher $publicClassMethodMatcher,
+        private CollectorMetadataPrinter $collectorMetadataPrinter
     ) {
     }
 

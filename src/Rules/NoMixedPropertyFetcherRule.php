@@ -15,7 +15,7 @@ use PHPStan\Type\MixedType;
  * @see \Rector\TypePerfect\Tests\Rules\NoMixedPropertyFetcherRule\NoMixedPropertyFetcherRuleTest
  * @implements Rule<PropertyFetch>
  */
-final class NoMixedPropertyFetcherRule implements Rule
+final readonly class NoMixedPropertyFetcherRule implements Rule
 {
     /**
      * @var string
@@ -23,7 +23,7 @@ final class NoMixedPropertyFetcherRule implements Rule
     public const ERROR_MESSAGE = 'Mixed property fetch in a "%s->..." can skip important errors. Make sure the type is known';
 
     public function __construct(
-        private readonly Standard $standard,
+        private Standard $standard,
     ) {
     }
 

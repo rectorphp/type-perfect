@@ -21,7 +21,6 @@ use PHPStan\Type\Generic\TemplateType;
 use PHPStan\Type\IntersectionType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
-use PHPStan\Type\Type;
 use PHPStan\Type\UnionType;
 use PHPStan\Type\VerbosityLevel;
 use Rector\TypePerfect\Configuration;
@@ -32,7 +31,7 @@ use Rector\TypePerfect\NodeFinder\MethodCallNodeFinder;
  * @see \Rector\TypePerfect\Tests\Rules\CheckTypehintCallerTypeRule\CheckTypehintCallerTypeRuleTest
  * @implements Rule<MethodCall>
  */
-final class NarrowPrivateClassMethodParamTypeRule implements Rule
+final readonly class NarrowPrivateClassMethodParamTypeRule implements Rule
 {
     /**
      * @var string
@@ -40,9 +39,9 @@ final class NarrowPrivateClassMethodParamTypeRule implements Rule
     public const ERROR_MESSAGE = 'Parameter %d should use "%s" type as the only type passed to this method';
 
     public function __construct(
-        private readonly Configuration $configuration,
-        private readonly MethodCallNodeFinder $methodCallNodeFinder,
-        private readonly ClassMethodNodeFinder $classMethodNodeFinder
+        private Configuration $configuration,
+        private MethodCallNodeFinder $methodCallNodeFinder,
+        private ClassMethodNodeFinder $classMethodNodeFinder
     ) {
     }
 
@@ -116,7 +115,7 @@ final class NarrowPrivateClassMethodParamTypeRule implements Rule
             }
 
             $paramRuleError = $this->validateParam($param, $position, $arg->value, $scope);
-            if ($paramRuleError === null) {
+            if (! $paramRuleError instanceof RuleError) {
                 continue;
             }
 
