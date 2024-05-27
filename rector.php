@@ -6,6 +6,7 @@ use Rector\Config\RectorConfig;
 
 return RectorConfig::configure()
     ->withPhpSets()
+    ->withRootFiles()
     ->withPreparedSets(
         codeQuality: true,
         deadCode: true,
@@ -20,16 +21,8 @@ return RectorConfig::configure()
         __DIR__ . '/src',
         __DIR__ . '/tests',
     ])
-    ->withRootFiles()
     ->withImportNames(removeUnusedImports: true)
     ->withSkip([
         '*/Source/*',
         '*/Fixture/*',
     ]);
-
-//
-//    $rectorConfig->ruleWithConfiguration(\Rector\Php55\Rector\String_\StringClassNameToClassConstantRector::class, [
-//        'Symfony\Component\Console\*',
-//        'Rector\Contract\Rector\ConfigurableRectorInterface',
-//    ]);
-//};
