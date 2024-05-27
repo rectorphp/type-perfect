@@ -22,17 +22,27 @@ use Rector\TypePerfect\Reflection\MethodNodeAnalyser;
  *
  * @implements Rule<ClassMethod>
  */
-final readonly class RequireSpecificReturnTypeOverAbstractRule implements Rule
+final class RequireSpecificReturnTypeOverAbstractRule implements Rule
 {
+    /**
+     * @readonly
+     * @var \Rector\TypePerfect\NodeFinder\ReturnNodeFinder
+     */
+    private $returnNodeFinder;
+    /**
+     * @readonly
+     * @var \Rector\TypePerfect\Reflection\MethodNodeAnalyser
+     */
+    private $methodNodeAnalyser;
     /**
      * @var string
      */
     public const ERROR_MESSAGE = 'Provide more specific return type "%s" over abstract one';
 
-    public function __construct(
-        private ReturnNodeFinder $returnNodeFinder,
-        private MethodNodeAnalyser $methodNodeAnalyser,
-    ) {
+    public function __construct(ReturnNodeFinder $returnNodeFinder, MethodNodeAnalyser $methodNodeAnalyser)
+    {
+        $this->returnNodeFinder = $returnNodeFinder;
+        $this->methodNodeAnalyser = $methodNodeAnalyser;
     }
 
     /**

@@ -15,14 +15,23 @@ use Rector\TypePerfect\ValueObject\MethodCallReference;
 /**
  * @implements Collector<MethodCall, array<string>|null>
  */
-final readonly class MethodCallArgTypesCollector implements Collector
+final class MethodCallArgTypesCollector implements Collector
 {
-    public function __construct(
-        private ClassMethodCallReferenceResolver $classMethodCallReferenceResolver,
-        private CollectorMetadataPrinter $collectorMetadataPrinter,
-    ) {
+    /**
+     * @readonly
+     * @var \Rector\TypePerfect\Matcher\ClassMethodCallReferenceResolver
+     */
+    private $classMethodCallReferenceResolver;
+    /**
+     * @readonly
+     * @var \Rector\TypePerfect\Printer\CollectorMetadataPrinter
+     */
+    private $collectorMetadataPrinter;
+    public function __construct(ClassMethodCallReferenceResolver $classMethodCallReferenceResolver, CollectorMetadataPrinter $collectorMetadataPrinter)
+    {
+        $this->classMethodCallReferenceResolver = $classMethodCallReferenceResolver;
+        $this->collectorMetadataPrinter = $collectorMetadataPrinter;
     }
-
     public function getNodeType(): string
     {
         return MethodCall::class;

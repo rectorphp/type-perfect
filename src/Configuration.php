@@ -7,11 +7,16 @@ namespace Rector\TypePerfect;
 final class Configuration
 {
     /**
+     * @var array<string, mixed>
+     */
+    private $parameters;
+    /**
      * @param array<string, mixed> $parameters
      */
     public function __construct(
-        private array $parameters
+        array $parameters
     ) {
+        $this->parameters = $parameters;
         // enabed by default in tests
         if (defined('PHPUNIT_COMPOSER_INSTALL')) {
             $this->parameters['narrow'] = true;
