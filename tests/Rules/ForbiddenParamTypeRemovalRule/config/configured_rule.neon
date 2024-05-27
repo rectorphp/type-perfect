@@ -1,5 +1,0 @@
-includes:
-    - ../../../../config/extension.neon
-
-rules:
-    - Rector\TypePerfect\Rules\ForbiddenParamTypeRemovalRule

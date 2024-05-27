@@ -11,9 +11,6 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use Rector\TypePerfect\Rules\RequireSpecificReturnTypeOverAbstractRule;
 use Rector\TypePerfect\Tests\Rules\RequireSpecificReturnTypeOverAbstractRule\Source\SpecificControl;
 
-/**
- * @extends RuleTestCase<RequireSpecificReturnTypeOverAbstractRule>
- */
 final class RequireSpecificReturnTypeOverAbstractRuleTest extends RuleTestCase
 {
     /**
@@ -39,7 +36,7 @@ final class RequireSpecificReturnTypeOverAbstractRuleTest extends RuleTestCase
      */
     public static function getAdditionalConfigFiles(): array
     {
-        return [__DIR__ . '/config/configured_rule.neon'];
+        return [__DIR__ . '/../../../config/extension.neon'];
     }
 
     protected function getRule(): Rule

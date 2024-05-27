@@ -57,7 +57,7 @@ final class NarrowPrivateClassMethodParamTypeRuleTest extends RuleTestCase
      */
     public static function getAdditionalConfigFiles(): array
     {
-        return [__DIR__ . '/config/configured_rule.neon'];
+        return [__DIR__ . '/../../../config/extension.neon'];
     }
 
     protected function getRule(): Rule
