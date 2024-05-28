@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Rector\TypePerfect\Tests\Rules\ForbiddenParamTypeRemovalRule;
+namespace Rector\TypePerfect\Tests\Rules\NoParamTypeRemovalRule;
 
 use Iterator;
 use PHPStan\Rules\Rule;
 use PHPStan\Testing\RuleTestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
-use Rector\TypePerfect\Rules\ForbiddenParamTypeRemovalRule;
+use Rector\TypePerfect\Rules\NoParamTypeRemovalRule;
 
-final class ForbiddenParamTypeRemovalRuleTest extends RuleTestCase
+final class NoParamTypeRemovalRuleTest extends RuleTestCase
 {
     /**
      * @param mixed[] $expectedErrorMessagesWithLines
@@ -29,7 +29,7 @@ final class ForbiddenParamTypeRemovalRuleTest extends RuleTestCase
 
         yield [__DIR__ . '/Fixture/SkipIndirectRemoval.php', []];
 
-        yield [__DIR__ . '/Fixture/RemoveParentType.php', [[ForbiddenParamTypeRemovalRule::ERROR_MESSAGE, 11]]];
+        yield [__DIR__ . '/Fixture/RemoveParentType.php', [[NoParamTypeRemovalRule::ERROR_MESSAGE, 11]]];
 
         yield [__DIR__ . '/Fixture/SkipNoParent.php', []];
         yield [__DIR__ . '/Fixture/SkipNotHasParentMethod.php', []];
@@ -38,12 +38,12 @@ final class ForbiddenParamTypeRemovalRuleTest extends RuleTestCase
 
         yield [
             __DIR__ . '/Fixture/HasDifferentParameterWithParentMethod.php',
-            [[ForbiddenParamTypeRemovalRule::ERROR_MESSAGE, 9]],
+            [[NoParamTypeRemovalRule::ERROR_MESSAGE, 9]],
         ];
         yield [
             __DIR__ . '/Fixture/HasDifferentParameterWithInterfaceMethod.php',
-            [[ForbiddenParamTypeRemovalRule::ERROR_MESSAGE, 9], [
-                ForbiddenParamTypeRemovalRule::ERROR_MESSAGE,
+            [[NoParamTypeRemovalRule::ERROR_MESSAGE, 9], [
+                NoParamTypeRemovalRule::ERROR_MESSAGE,
                 13,
             ]],
         ];
@@ -59,6 +59,6 @@ final class ForbiddenParamTypeRemovalRuleTest extends RuleTestCase
 
     protected function getRule(): Rule
     {
-        return self::getContainer()->getByType(ForbiddenParamTypeRemovalRule::class);
+        return self::getContainer()->getByType(NoParamTypeRemovalRule::class);
     }
 }

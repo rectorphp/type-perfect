@@ -17,7 +17,7 @@ use Rector\TypePerfect\Reflection\MethodNodeAnalyser;
  * @see \Rector\TypePerfect\Tests\Rules\ForbiddenParamTypeRemovalRule\ForbiddenParamTypeRemovalRuleTest
  * @implements Rule<ClassMethod>
  */
-final readonly class ForbiddenParamTypeRemovalRule implements Rule
+final readonly class NoParamTypeRemovalRule implements Rule
 {
     /**
      * @var string

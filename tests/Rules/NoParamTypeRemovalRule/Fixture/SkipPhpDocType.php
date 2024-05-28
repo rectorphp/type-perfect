@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Rector\TypePerfect\Tests\Rules\ForbiddenParamTypeRemovalRule\Fixture;
+namespace Rector\TypePerfect\Tests\Rules\NoParamTypeRemovalRule\Fixture;
 
-use Rector\TypePerfect\Tests\Rules\ForbiddenParamTypeRemovalRule\Source\PhpDocType;
+use Rector\TypePerfect\Tests\Rules\NoParamTypeRemovalRule\Source\PhpDocType;
 
 final class SkipPhpDocType extends PhpDocType
 {
