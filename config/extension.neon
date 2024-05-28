@@ -50,14 +50,14 @@ rules:
     # narrow types
     - Rector\TypePerfect\Rules\NarrowPublicClassMethodParamTypeRule
     - Rector\TypePerfect\Rules\NarrowPrivateClassMethodParamTypeRule
+    - Rector\TypePerfect\Rules\NarrowReturnObjectTypeRule
     - Rector\TypePerfect\Rules\NoReturnFalseInNonBoolClassMethodRule
-    - Rector\TypePerfect\Rules\RequireSpecificReturnTypeOverAbstractRule
 
     # no mixed
     - Rector\TypePerfect\Rules\NoMixedPropertyFetcherRule
     - Rector\TypePerfect\Rules\NoMixedMethodCallerRule
 
     # simple - always enable these
-    - Rector\TypePerfect\Rules\ForbiddenParamTypeRemovalRule
+    - Rector\TypePerfect\Rules\NoParamTypeRemovalRule
     - Rector\TypePerfect\Rules\NoArrayAccessOnObjectRule
     - Rector\TypePerfect\Rules\NoIssetOnObjectRule
