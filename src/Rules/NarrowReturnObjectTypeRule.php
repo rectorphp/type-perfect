@@ -22,7 +22,7 @@ use Rector\TypePerfect\Reflection\MethodNodeAnalyser;
  *
  * @implements Rule<ClassMethod>
  */
-final readonly class RequireSpecificReturnTypeOverAbstractRule implements Rule
+final readonly class NarrowReturnObjectTypeRule implements Rule
 {
     /**
      * @var string

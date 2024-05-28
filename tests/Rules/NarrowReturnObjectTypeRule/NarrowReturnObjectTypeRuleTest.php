@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Rector\TypePerfect\Tests\Rules\RequireSpecificReturnTypeOverAbstractRule;
+namespace Rector\TypePerfect\Tests\Rules\NarrowReturnObjectTypeRule;
 
 use Iterator;
 use PHPStan\Rules\Rule;
 use PHPStan\Testing\RuleTestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
-use Rector\TypePerfect\Rules\RequireSpecificReturnTypeOverAbstractRule;
-use Rector\TypePerfect\Tests\Rules\RequireSpecificReturnTypeOverAbstractRule\Source\SpecificControl;
+use Rector\TypePerfect\Rules\NarrowReturnObjectTypeRule;
+use Rector\TypePerfect\Tests\Rules\NarrowReturnObjectTypeRule\Source\SpecificControl;
 
-final class RequireSpecificReturnTypeOverAbstractRuleTest extends RuleTestCase
+final class NarrowReturnObjectTypeRuleTest extends RuleTestCase
 {
     /**
      * @param mixed[] $expectedErrorMessagesWithLines
@@ -27,7 +27,7 @@ final class RequireSpecificReturnTypeOverAbstractRuleTest extends RuleTestCase
         yield [__DIR__ . '/Fixture/SkipSpecificReturnType.php', []];
         yield [__DIR__ . '/Fixture/SkipSomeContract.php', []];
 
-        $errorMessage = sprintf(RequireSpecificReturnTypeOverAbstractRule::ERROR_MESSAGE, SpecificControl::class);
+        $errorMessage = sprintf(NarrowReturnObjectTypeRule::ERROR_MESSAGE, SpecificControl::class);
         yield [__DIR__ . '/Fixture/SomeAbstractReturnType.php', [[$errorMessage, 12]]];
     }
 
@@ -41,6 +41,6 @@ final class RequireSpecificReturnTypeOverAbstractRuleTest extends RuleTestCase
 
     protected function getRule(): Rule
     {
-        return self::getContainer()->getByType(RequireSpecificReturnTypeOverAbstractRule::class);
+        return self::getContainer()->getByType(NarrowReturnObjectTypeRule::class);
     }
 }
