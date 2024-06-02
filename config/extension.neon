@@ -1,17 +1,37 @@
 parametersSchema:
     # see https://doc.nette.org/en/schema for configuration
     type_perfect: structure([
-        narrow: bool()
+        narrow_param: bool()
         no_mixed: bool()
         null_over_false: bool()
     ])
 
-# default parameters
+# defaults
 parameters:
     type_perfect:
-        narrow: false
+        narrow_param: false
         no_mixed: false
         null_over_false: false
+
+rules:
+    # enabled by default
+    - Rector\TypePerfect\Rules\NoParamTypeRemovalRule
+    - Rector\TypePerfect\Rules\NoArrayAccessOnObjectRule
+    - Rector\TypePerfect\Rules\NoIssetOnObjectRule
+
+    # turn on by the group name
+
+    # narrow_param
+    - Rector\TypePerfect\Rules\NarrowPublicClassMethodParamTypeRule
+    - Rector\TypePerfect\Rules\NarrowPrivateClassMethodParamTypeRule
+    - Rector\TypePerfect\Rules\NarrowReturnObjectTypeRule
+
+    # no_mixed
+    - Rector\TypePerfect\Rules\NoMixedPropertyFetcherRule
+    - Rector\TypePerfect\Rules\NoMixedMethodCallerRule
+
+    # null_over_false
+    - Rector\TypePerfect\Rules\ReturnNullOverFalseRule
 
 services:
     -
@@ -44,20 +64,3 @@ services:
         class: Rector\TypePerfect\Collector\MethodCallableNode\MethodCallableCollector
         tags:
             - phpstan.collector
-
-# these rule focus on the whole-project analysis, see https://phpstan.org/developing-extensions/collectors
-rules:
-    # narrow types
-    - Rector\TypePerfect\Rules\NarrowPublicClassMethodParamTypeRule
-    - Rector\TypePerfect\Rules\NarrowPrivateClassMethodParamTypeRule
-    - Rector\TypePerfect\Rules\NarrowReturnObjectTypeRule
-    - Rector\TypePerfect\Rules\ReturnNullOverFalseRule
-
-    # no mixed
-    - Rector\TypePerfect\Rules\NoMixedPropertyFetcherRule
-    - Rector\TypePerfect\Rules\NoMixedMethodCallerRule
-
-    # simple - always enable these
-    - Rector\TypePerfect\Rules\NoParamTypeRemovalRule
-    - Rector\TypePerfect\Rules\NoArrayAccessOnObjectRule
-    - Rector\TypePerfect\Rules\NoIssetOnObjectRule

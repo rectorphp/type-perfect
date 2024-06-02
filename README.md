@@ -4,6 +4,10 @@
 
 Next level type declaration check PHPStan rules.
 
+We use these sets to improve code quality of our clients' code beyond PHPStan features.
+
+These rules make skipped object types explicit, param types narrow and help you to fill more accurate object type hints. If you care about code quality and type safety, add these rules to your CI.
+
 <br>
 
 ## Install
@@ -16,15 +20,23 @@ composer require rector/type-perfect --dev
 
 <br>
 
-@todo enable by configuration
+
+
+## Configure
+
+Next rules you can enable by configuration:
 
 ```yaml
 parameters:
     type_coverage:
-        narrow: false
-        no_mixed: false
-        null_over_false: false
+        narrow_param: true
+        no_mixed: true
+        null_over_false: true
 ```
+
+## Narrow Param Types
+
+```php
 
 Add sets one by one, fix what you find useful and ignore the rest.
 
