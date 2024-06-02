@@ -31,7 +31,7 @@ final class ApiDocStmtAnalyzer
             return false;
         }
 
-        $resolvedPhpDoc = $classReflection->getResolvedPhpDoc();
-        return str_contains($resolvedPhpDoc->getPhpDocString(), '@api');
+        $resolvedPhpDocBlock = $classReflection->getResolvedPhpDoc();
+        return str_contains($resolvedPhpDocBlock->getPhpDocString(), '@api');
     }
 }
