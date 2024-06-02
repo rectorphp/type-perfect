@@ -178,18 +178,39 @@ parameters:
         narrow_param: true
 ```
 
-@todo
-
-This group
+In case of private, but also public method calsl, we often known exact types that are passed in it:
 
 ```php
+// in one file
+$product->addPrice(100.52);
 
+// another file
+$product->addPrice(52.05);
 ```
 
+From fear and "just to be safe", we keep the `addPrice()` param type empty, `mixed` or in a docblock.
 
+:no_good:
 
+↓
 
+If in 100 % cases the `float` types is passed, PHPStan knows it can be added and improve further analysis:
 
+```diff
+
+-/**
+- * @param float $price
+- */
+-public function addPrice($price)
++public function addPrice(float $price)
+{
+    $this->price = $price;
+}
+```
+
+:heavy_check_mark:
+
+<br>
 
 Add sets one by one, fix what you find useful and ignore the rest.
 
