@@ -49,6 +49,7 @@ final readonly class NoMixedMethodCallerRule implements Rule
         }
 
         $callerType = $scope->getType($node->var);
+
         if (! $callerType instanceof MixedType) {
             return [];
         }
@@ -57,10 +58,30 @@ final readonly class NoMixedMethodCallerRule implements Rule
             return [];
         }
 
+        // if error, skip as well for false positive
+        if ($this->isPreviousTypeErrorType($node, $scope)) {
+            return [];
+        }
+
         $printedMethodCall = $this->printerStandard->prettyPrintExpr($node->var);
 
         return [
             sprintf(self::ERROR_MESSAGE, $printedMethodCall),
         ];
+    }
+
+    private function isPreviousTypeErrorType(MethodCall $methodCall, Scope $scope): bool
+    {
+        $currentMethodCall = $methodCall;
+        while ($currentMethodCall->var instanceof MethodCall) {
+            $previousType = $scope->getType($currentMethodCall->var);
+            if ($previousType instanceof ErrorType) {
+                return true;
+            }
+
+            $currentMethodCall = $currentMethodCall->var;
+        }
+
+        return false;
     }
 }

@@ -12,9 +12,6 @@ use Rector\TypePerfect\Rules\NoMixedPropertyFetcherRule;
 
 final class NoMixedPropertyFetcherRuleTest extends RuleTestCase
 {
-    /**
-     * @param mixed[]|array<int, array<int|string>> $expectedErrorsWithLines
-     */
     #[DataProvider('provideData')]
     public function testRule(string $filePath, array $expectedErrorsWithLines): void
     {

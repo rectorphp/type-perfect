@@ -17,7 +17,7 @@ use Rector\TypePerfect\Configuration;
 /**
  * @implements Rule<ClassMethod>
  */
-final readonly class NoReturnFalseInNonBoolClassMethodRule implements Rule
+final readonly class ReturnNullOverFalseRule implements Rule
 {
     /**
      * @api

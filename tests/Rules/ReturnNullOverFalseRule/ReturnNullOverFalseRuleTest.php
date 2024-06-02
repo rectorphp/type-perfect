@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Rector\TypePerfect\Tests\Rules\NoReturnFalseInNonBoolClassMethodRule;
+namespace Rector\TypePerfect\Tests\Rules\ReturnNullOverFalseRule;
 
 use Iterator;
 use PHPStan\Rules\Rule;
 use PHPStan\Testing\RuleTestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
-use Rector\TypePerfect\Rules\NoReturnFalseInNonBoolClassMethodRule;
+use Rector\TypePerfect\Rules\ReturnNullOverFalseRule;
 
-final class NoReturnFalseInNonBoolClassMethodRuleTest extends RuleTestCase
+final class ReturnNullOverFalseRuleTest extends RuleTestCase
 {
     /**
      * @param mixed[] $expectedErrorMessagesWithLines
@@ -25,7 +25,7 @@ final class NoReturnFalseInNonBoolClassMethodRuleTest extends RuleTestCase
     {
         yield [
             __DIR__ . '/Fixture/ReturnFalseOnly.php',
-            [[NoReturnFalseInNonBoolClassMethodRule::ERROR_MESSAGE, 9]],
+            [[ReturnNullOverFalseRule::ERROR_MESSAGE, 9]],
         ];
 
         yield [__DIR__ . '/Fixture/SkipReturnBool.php', []];
@@ -41,6 +41,6 @@ final class NoReturnFalseInNonBoolClassMethodRuleTest extends RuleTestCase
 
     protected function getRule(): Rule
     {
-        return self::getContainer()->getByType(NoReturnFalseInNonBoolClassMethodRule::class);
+        return self::getContainer()->getByType(ReturnNullOverFalseRule::class);
     }
 }

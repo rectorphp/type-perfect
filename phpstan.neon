@@ -18,5 +18,5 @@ parameters:
         - '#Method (.*?)::getCollectors\(\) return type with generic interface PHPStan\\Collectors\\Collector does not specify its types\: TNodeType, TValue#'
 
         # overly detailed generics
-        - '#Class Rector\\TypePerfect\\Tests\\Rules\\(.*?) extends generic class PHPStan\\Testing\\RuleTestCase but does not specify its types\: TRule#'
-        - '#Method Rector\\TypePerfect\\Tests\\Rules\\(.*?)\:\:getRule\(\) return type with generic interface PHPStan\\Rules\\Rule does not specify its types\: TNodeType#'
+        - '#Rector\\TypePerfect\\Tests\\Rules\\(.*?) generic (class|interface)#'
+        - '#Method Rector\\TypePerfect\\Tests\\Rules\\(.*?)testRule\(\) has parameter \$expectedErrorsWithLines with no value type specified in iterable type array#'
