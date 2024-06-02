@@ -10,15 +10,10 @@ use PhpParser\Node\FunctionLike;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Return_;
 use PhpParser\NodeTraverser;
-use Rector\TypePerfect\NodeTraverser\SimpleCallableNodeTraverser;
+use Rector\TypePerfect\NodeVisitor\CallableNodeVisitor;
 
 final readonly class ReturnNodeFinder
 {
-    public function __construct(
-        private SimpleCallableNodeTraverser $simpleCallableNodeTraverser
-    ) {
-    }
-
     public function findOnlyReturnsExpr(ClassMethod $classMethod): Expr|null
     {
         $returns = $this->findReturnsWithValues($classMethod);
@@ -37,7 +32,7 @@ final readonly class ReturnNodeFinder
     {
         $returns = [];
 
-        $this->simpleCallableNodeTraverser->traverseNodesWithCallable((array) $classMethod->stmts, static function (
+        $this->traverseNodesWithCallable((array) $classMethod->stmts, static function (
             Node $node
         ) use (&$returns) {
             // skip different scope
@@ -57,5 +52,18 @@ final readonly class ReturnNodeFinder
         });
 
         return $returns;
+    }
+
+    /**
+     * @param callable(Node $node): (int|Node|null) $callable
+     * @param Node[] $nodes
+     */
+    private function traverseNodesWithCallable(array $nodes, callable $callable): void
+    {
+        $nodeTraverser = new NodeTraverser();
+
+        $callableNodeVisitor = new CallableNodeVisitor($callable);
+        $nodeTraverser->addVisitor($callableNodeVisitor);
+        $nodeTraverser->traverse($nodes);
     }
 }

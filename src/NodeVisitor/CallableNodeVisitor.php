@@ -28,7 +28,6 @@ final class CallableNodeVisitor extends NodeVisitorAbstract
     public function enterNode(Node $node): int|Node|null
     {
         $originalNode = $node;
-
         $callable = $this->callable;
 
         /** @var int|Node|null $newNode */

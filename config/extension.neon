@@ -39,7 +39,6 @@ services:
         arguments:
             - %type_perfect%
 
-    - Rector\TypePerfect\NodeTraverser\SimpleCallableNodeTraverser
     - Rector\TypePerfect\NodeFinder\ClassMethodNodeFinder
     - Rector\TypePerfect\NodeFinder\MethodCallNodeFinder
     - Rector\TypePerfect\NodeFinder\ReturnNodeFinder

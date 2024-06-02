@@ -13,11 +13,8 @@ final class ApiDocStmtAnalyzer
 {
     public function hasApiDoc(ClassMethod $classMethod, ClassReflection $classReflection): bool
     {
-        if ($classReflection->getResolvedPhpDoc() instanceof ResolvedPhpDocBlock) {
-            $resolvedPhpDoc = $classReflection->getResolvedPhpDoc();
-            if (str_contains($resolvedPhpDoc->getPhpDocString(), '@api')) {
-                return true;
-            }
+        if ($this->hasClassReflectionApiDoc($classReflection)) {
+            return true;
         }
 
         $docComment = $classMethod->getDocComment();
@@ -26,5 +23,15 @@ final class ApiDocStmtAnalyzer
         }
 
         return str_contains($docComment->getText(), '@api');
+    }
+
+    private function hasClassReflectionApiDoc(ClassReflection $classReflection): bool
+    {
+        if (! $classReflection->getResolvedPhpDoc() instanceof ResolvedPhpDocBlock) {
+            return false;
+        }
+
+        $resolvedPhpDoc = $classReflection->getResolvedPhpDoc();
+        return str_contains($resolvedPhpDoc->getPhpDocString(), '@api');
     }
 }
