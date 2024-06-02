@@ -20,7 +20,7 @@ If you care about code quality and type safety, add these 10 rules to your CI.
 composer require rector/type-perfect --dev
 ```
 
-*Note: Make sure you use [`phpstan/extension-installer`](https://github.com/phpstan/extension-installer#usage) to load necessary service configs.*
+*Note: Make sure you use [`phpstan/extension-installer`](https://github.com/phpstan/extension-installer#usage) to load the necessary service configs.*
 
 <br>
 
@@ -93,7 +93,7 @@ parameters:
         null_over_false: true
 ```
 
-Bool types are typically used for on/off, yes/no responses. But sometimes, the `false` is missused as *no-result* response, where `null` would be more accurate:
+Bool types are typically used for on/off, yes/no responses. But sometimes, the `false` is misused as *no-result* response, where `null` would be more accurate:
 
 ```php
 public function getProduct()
@@ -188,13 +188,13 @@ $product->addPrice(100.52);
 $product->addPrice(52.05);
 ```
 
-But from fear and "just to be safe", we keep the `addPrice()` param type empty, `mixed` or in a docblock.
+But out of from fear and "just to be safe", we keep the `addPrice()` param type empty, `mixed` or in a docblock.
 
 :no_good:
 
 ↓
 
-If in 100 % cases the `float` types is passed, PHPStan knows it can be added and improve further analysis:
+If, in 100 % cases the `float` type is passed, PHPStan knows it can be added and improve further analysis:
 
 ```diff
 
@@ -208,13 +208,13 @@ If in 100 % cases the `float` types is passed, PHPStan knows it can be added and
 }
 ```
 
-That's where this group comes in. It checks all the passed types, and let us know how to narrow the param type declaration.
+That's where this group comes in. It checks all the passed types, and tells us know how to narrow the param type declaration.
 
 :heavy_check_mark:
 
 <br>
 
-Add sets one by one, fix what you find useful and ignore the rest.
+Add sets one by one, fix what you find helpful and ignore the rest.
 
 <br>
 
