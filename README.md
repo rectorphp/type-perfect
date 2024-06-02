@@ -178,7 +178,7 @@ parameters:
         narrow_param: true
 ```
 
-In case of private, but also public method calsl, we often known exact types that are passed in it:
+In case of `private`, but also `public` method calls, our project often knows exact types that are passed in it:
 
 ```php
 // in one file
@@ -188,7 +188,7 @@ $product->addPrice(100.52);
 $product->addPrice(52.05);
 ```
 
-From fear and "just to be safe", we keep the `addPrice()` param type empty, `mixed` or in a docblock.
+But from fear and "just to be safe", we keep the `addPrice()` param type empty, `mixed` or in a docblock.
 
 :no_good:
 
@@ -207,6 +207,8 @@ If in 100 % cases the `float` types is passed, PHPStan knows it can be added and
     $this->price = $price;
 }
 ```
+
+That's where this group comes in. It checks all the passed types, and let us know how to narrow the param type declaration.
 
 :heavy_check_mark:
 
