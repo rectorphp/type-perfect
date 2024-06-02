@@ -7,11 +7,16 @@ namespace Rector\TypePerfect\Printer;
 use PhpParser\Node;
 use PhpParser\PrettyPrinter\Standard;
 
-final readonly class NodeComparator
+final class NodeComparator
 {
-    public function __construct(
-        private Standard $standard
-    ) {
+    /**
+     * @readonly
+     * @var \PhpParser\PrettyPrinter\Standard
+     */
+    private $standard;
+    public function __construct(Standard $standard)
+    {
+        $this->standard = $standard;
     }
 
     public function areNodesEqual(Node $firstNode, Node $secondNode): bool

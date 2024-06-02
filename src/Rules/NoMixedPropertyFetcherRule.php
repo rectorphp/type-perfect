@@ -15,16 +15,21 @@ use PHPStan\Type\MixedType;
  * @see \Rector\TypePerfect\Tests\Rules\NoMixedPropertyFetcherRule\NoMixedPropertyFetcherRuleTest
  * @implements Rule<PropertyFetch>
  */
-final readonly class NoMixedPropertyFetcherRule implements Rule
+final class NoMixedPropertyFetcherRule implements Rule
 {
+    /**
+     * @readonly
+     * @var \PhpParser\PrettyPrinter\Standard
+     */
+    private $standard;
     /**
      * @var string
      */
     public const ERROR_MESSAGE = 'Mixed property fetch in a "%s->..." can skip important errors. Make sure the type is known';
 
-    public function __construct(
-        private Standard $standard,
-    ) {
+    public function __construct(Standard $standard)
+    {
+        $this->standard = $standard;
     }
 
     /**

@@ -22,7 +22,7 @@ final class ApiDocStmtAnalyzer
             return false;
         }
 
-        return str_contains($docComment->getText(), '@api');
+        return strpos($docComment->getText(), '@api') !== false;
     }
 
     private function hasClassReflectionApiDoc(ClassReflection $classReflection): bool
@@ -32,6 +32,6 @@ final class ApiDocStmtAnalyzer
         }
 
         $resolvedPhpDoc = $classReflection->getResolvedPhpDoc();
-        return str_contains($resolvedPhpDoc->getPhpDocString(), '@api');
+        return strpos($resolvedPhpDoc->getPhpDocString(), '@api') !== false;
     }
 }

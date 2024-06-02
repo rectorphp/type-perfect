@@ -4,30 +4,13 @@
     "description": "Next level type declaration checks",
     "license": "MIT",
     "require": {
-        "php": "^8.2",
+        "php": "^7.2|^8.0",
         "phpstan/phpstan": "^1.11",
-        "webmozart/assert": "^1.11",
-        "nette/utils": "^4.0"
-    },
-    "require-dev": {
-        "nikic/php-parser": "^4.19",
-        "symplify/phpstan-extensions": "^11.4",
-        "symplify/rule-doc-generator": "^12.1",
-        "phpunit/phpunit": "^10.5",
-        "rector/rector": "^1.1",
-        "symplify/easy-coding-standard": "^12.1",
-        "phpstan/extension-installer": "^1.3",
-        "tomasvotruba/class-leak": "^0.2",
-        "tracy/tracy": "^2.10"
+        "webmozart/assert": "^1.11"
     },
     "autoload": {
         "psr-4": {
             "Rector\\TypePerfect\\": "src"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Rector\\TypePerfect\\Tests\\": "tests"
         }
     },
     "extra": {
@@ -36,17 +19,5 @@
                 "config/extension.neon"
             ]
         }
-    },
-    "config": {
-        "platform-check": false,
-        "allow-plugins": {
-            "phpstan/extension-installer": true
-        }
-    },
-    "scripts": {
-        "check-cs": "vendor/bin/ecs check --ansi",
-        "fix-cs": "vendor/bin/ecs check --fix --ansi",
-        "phpstan": "vendor/bin/phpstan analyse --ansi  --error-format symplify",
-        "rector": "vendor/bin/rector process --dry-run --ansi"
     }
 }

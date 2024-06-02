@@ -26,9 +26,13 @@ use PHPStan\Type\UnionType as PHPStanUnionType;
 use PHPStan\Type\VerbosityLevel;
 use Rector\TypePerfect\Enum\Types\ResolvedTypes;
 
-final readonly class CollectorMetadataPrinter
+final class CollectorMetadataPrinter
 {
-    private Standard $printerStandard;
+    /**
+     * @readonly
+     * @var \PhpParser\PrettyPrinter\Standard
+     */
+    private $printerStandard;
 
     public function __construct()
     {
