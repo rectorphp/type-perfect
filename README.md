@@ -8,7 +8,7 @@ We use these sets to improve code quality of our clients' code beyond PHPStan fe
 
 * These rules make skipped object types explicit, param types narrow and help you to fill more accurate object type hints.
 * **They're easy to enable, even if your code does not pass level 0**
-* They're effortless to resolve.
+* They're effortless to resolve and make your code instantly more solid and reliable.
 
 If you care about code quality and type safety, add these rules to your CI.
 
