@@ -7,7 +7,7 @@ Next level type declaration check PHPStan rules.
 We use these sets to improve code quality of our clients' code beyond PHPStan features.
 
 * These rules make skipped object types explicit, param types narrow and help you to fill more accurate object type hints.
-* They're easy to enable, even if your code does not pass level 0
+* **They're easy to enable, even if your code does not pass level 0**
 * They're effortless to resolve.
 
 If you care about code quality and type safety, add these rules to your CI.
