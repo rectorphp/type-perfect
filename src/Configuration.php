@@ -16,7 +16,7 @@ final class Configuration
         if (defined('PHPUNIT_COMPOSER_INSTALL')) {
             $this->parameters['narrow'] = true;
             $this->parameters['no_mixed'] = true;
-            $this->parameters['no_falsy_return'] = true;
+            $this->parameters['null_over_false'] = true;
         }
     }
 
@@ -32,6 +32,6 @@ final class Configuration
 
     public function isNoFalsyReturnEnabled(): bool
     {
-        return $this->parameters['no_falsy_return'] ?? false;
+        return $this->parameters['null_over_false'] ?? false;
     }
 }

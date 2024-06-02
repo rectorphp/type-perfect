@@ -3,7 +3,7 @@ parametersSchema:
     type_perfect: structure([
         narrow: bool()
         no_mixed: bool()
-        no_falsy_return: bool()
+        null_over_false: bool()
     ])
 
 # default parameters
@@ -11,7 +11,7 @@ parameters:
     type_perfect:
         narrow: false
         no_mixed: false
-        no_falsy_return: false
+        null_over_false: false
 
 services:
     -

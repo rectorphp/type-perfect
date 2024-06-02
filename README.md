@@ -23,7 +23,7 @@ parameters:
     type_coverage:
         narrow: false
         no_mixed: false
-        no_falsy_return: false
+        null_over_false: false
 ```
 
 Add sets one by one, fix what you find useful and ignore the rest.
