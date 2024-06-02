@@ -10,7 +10,7 @@ We use these sets to improve code quality of our clients' code beyond PHPStan fe
 * **They're easy to enable, even if your code does not pass level 0**
 * They're effortless to resolve and make your code instantly more solid and reliable.
 
-If you care about code quality and type safety, add these rules to your CI.
+If you care about code quality and type safety, add these 10 rules to your CI.
 
 <br>
 
@@ -65,6 +65,7 @@ $article = new Article();
 $id = $article['id'];
 // we have no idea, what the type is
 ```
+
 :no_good:
 
 ↓
@@ -80,33 +81,112 @@ $id = $article->getId();
 
 ## Configure
 
-Next rules you can enable by configuration:
+Next rules you can enable by configuration. We take them from the simplest to more powerful, in the same order we apply them on legacy projects.
+
+<br>
+
+## 1. Null over False
+
+```yaml
+parameters:
+    type_coverage:
+        null_over_false: true
+```
+
+Bool types are typically used for on/off, yes/no responses. But sometimes, the `false` is missused as *no-result* response, where `null` would be more accurate:
+
+```php
+public function getProduct()
+{
+    if (...) {
+        return $product;
+    }
+
+    return false;
+}
+```
+
+:no_good:
+
+↓
+
+We should use `null` instead, as it enabled strict type declaration in form of `?Product` since PHP 7.1:
+
+```php
+public function getProduct(): ?Product
+{
+    if (...) {
+        return $product;
+    }
+
+    return null;
+}
+```
+
+:heavy_check_mark:
+
+<br>
+
+## 2. No mixed Caller
+
+```yaml
+parameters:
+    type_coverage:
+        no_mixed: true
+```
+
+This group of rules focuses on PHPStan blind spot. If we have a property/method call with unknown type, PHPStan is not be able to analyse it. It silently ignores it.
+
+```php
+private $someType;
+
+public function run()
+{
+    $this->someType->someMetho(1, 2);
+}
+```
+
+It doesn't see there is a typo in `someMetho` name, and that the 2nd parameter must be `string`.
+
+:no_good:
+
+↓
+
+
+```php
+private SomeType $someType;
+
+public function run()
+{
+    $this->someType->someMethod(1, 'active');
+}
+```
+
+This group makes sure all property fetches and methods call know their type they're called on.
+
+:heavy_check_mark:
+
+<br>
+
+## 3. Narrow Param Types
+
+Last but not least, the narrowed param type declarations, the reliable the code.
 
 ```yaml
 parameters:
     type_coverage:
         narrow_param: true
-        no_mixed: true
-        null_over_false: true
 ```
 
-## 1. Narrow Param Types
+@todo
+
+This group
 
 ```php
 
 ```
 
-## 2. No mixed Caller
 
-```php
-
-```
-
-## 3. Null over False
-
-```php
-
-```
 
 
 
