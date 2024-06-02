@@ -12,9 +12,6 @@ use Rector\TypePerfect\Rules\NoMixedMethodCallerRule;
 
 final class NoMixedMethodCallerRuleTest extends RuleTestCase
 {
-    /**
-     * @param mixed[]|array<int, array<int|string>> $expectedErrorsWithLines
-     */
     #[DataProvider('provideData')]
     public function testRule(string $filePath, array $expectedErrorsWithLines): void
     {
