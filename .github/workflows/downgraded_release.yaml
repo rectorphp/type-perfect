@@ -6,7 +6,6 @@ on:
             # avoid infinite looping, skip tags that ends with ".72"
             # see https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#example-including-and-excluding-branches
             - '*'
-            - '!**.72'
 
 jobs:
     downgrade_release:
@@ -31,10 +30,10 @@ jobs:
 
             # get rector to "rector-local" directory, to avoid downgrading itself in the /vendor
             -   run: mkdir rector-local
-            -   run: composer require rector/rector:^0.17.1 --working-dir rector-local --ansi
+            -   run: composer require rector/rector:^1.1 --working-dir rector-local --ansi
 
             # downgrade to PHP 7.2
-            -   run: rector-local/vendor/bin/rector process src config --config build/rector-downgrade-php-72.php --ansi
+            -   run: rector-local/vendor/bin/rector process src --config build/rector-downgrade-php-72.php --ansi
 
             # clear the dev files
             -   run: rm -rf tests rector-local ecs.php phpstan.neon phpunit.xml .editorconfig
@@ -43,7 +42,7 @@ jobs:
             -   run: cp -r build/target-repository/. .
 
             # clear the dev files
-            -   run: rm -rf build monorepo-builder.php full-tool-build.sh rector.php phpstan-for-tests.neon tests
+            -   run: rm -rf build full-tool-build.sh rector.php tests
 
             # setup git user
             -

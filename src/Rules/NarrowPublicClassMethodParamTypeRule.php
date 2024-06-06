@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Rector\TypePerfect\Rules;
 
-use Nette\Utils\Arrays;
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Node\CollectedDataNode;
@@ -92,7 +91,8 @@ final readonly class NarrowPublicClassMethodParamTypeRule implements Rule
 
         // these should be skipped completely, as we have no idea what is being passed there
         $methodCallablesByFilePath = $collectedDataNode->get(MethodCallableCollector::class);
-        $methodFirstClassCallables = Arrays::flatten($methodCallablesByFilePath);
+
+        $methodFirstClassCallables = $this->flattenCollectedData($methodCallablesByFilePath);
 
         // group call references and types
         $classMethodReferenceToTypes = [];
@@ -142,5 +142,21 @@ final readonly class NarrowPublicClassMethodParamTypeRule implements Rule
         }
 
         return $collectedArgTypes[0];
+    }
+
+    /**
+     * @param mixed[] $methodCallablesByFilePath
+     * @return mixed[]
+     */
+    private function flattenCollectedData(array $methodCallablesByFilePath): array
+    {
+        $methodFirstClassCallables = [];
+        foreach ($methodCallablesByFilePath as $collectedData) {
+            foreach ($collectedData as $collectedItem) {
+                $methodFirstClassCallables[] = $collectedItem[0];
+            }
+        }
+
+        return $methodFirstClassCallables;
     }
 }

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Rector\TypePerfect\Reflection;
 
-use Nette\Utils\FileSystem;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\NodeFinder;
@@ -47,7 +46,10 @@ final class ReflectionParser
         }
 
         try {
-            $stmts = $this->parser->parse(FileSystem::read($fileName));
+            /** @var string $fileContents */
+            $fileContents = file_get_contents($fileName);
+
+            $stmts = $this->parser->parse($fileContents);
             if (! is_array($stmts)) {
                 return null;
             }
