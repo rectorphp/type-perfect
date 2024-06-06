@@ -89,7 +89,7 @@ Next rules you can enable by configuration. We take them from the simplest to mo
 
 ```yaml
 parameters:
-    type_coverage:
+    type_perfect:
         null_over_false: true
 ```
 
@@ -131,7 +131,7 @@ public function getProduct(): ?Product
 
 ```yaml
 parameters:
-    type_coverage:
+    type_perfect:
         no_mixed: true
 ```
 
@@ -174,7 +174,7 @@ Last but not least, the narrowed param type declarations, the reliable the code.
 
 ```yaml
 parameters:
-    type_coverage:
+    type_perfect:
         narrow_param: true
 ```
 
