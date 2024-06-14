@@ -117,7 +117,7 @@ final readonly class CollectorMetadataPrinter
         foreach ($unionType->types as $type) {
             if ($type instanceof NodeIntersectionType) {
                 foreach ($type->types as $intersectionType) {
-                    /** @var FullyQualified $intersectionType */
+                    /** @var Identifier|Name $intersectionType */
                     $intersectionType = $this->transformSelfToClassName($intersectionType, $className);
                     $typeNames[] = (string) $intersectionType;
                 }
@@ -125,7 +125,7 @@ final readonly class CollectorMetadataPrinter
                 continue;
             }
 
-            /** @var FullyQualified $type */
+            /** @var Identifier|Name $type */
             $type = $this->transformSelfToClassName($type, $className);
             $typeNames[] = (string) $type;
         }
