@@ -65,7 +65,7 @@ final readonly class PublicClassMethodParamTypesCollector implements Collector
             return null;
         }
 
-        $printedParamTypesString = $this->collectorMetadataPrinter->printParamTypesToString($node);
+        $printedParamTypesString = $this->collectorMetadataPrinter->printParamTypesToString($node, $classReflection->getName());
         return [$classReflection->getName(), $methodName, $printedParamTypesString, $node->getLine()];
     }
 }

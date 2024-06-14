@@ -140,6 +140,10 @@ final class NarrowPublicClassMethodParamTypeRuleTest extends RuleTestCase
             __DIR__ . '/Fixture/ThisPassedFromInterface.php',
             __DIR__ . '/Source/ExpectedThisType/CallByThisFromInterface.php',
         ], [[$argErrorMessage, 11]]];
+
+        yield [[
+            __DIR__ . '/Fixture/SkipSelf.php',
+        ], []];
     }
 
     /**
