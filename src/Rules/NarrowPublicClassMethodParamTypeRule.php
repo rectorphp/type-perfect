@@ -151,9 +151,9 @@ final readonly class NarrowPublicClassMethodParamTypeRule implements Rule
     private function flattenCollectedData(array $methodCallablesByFilePath): array
     {
         $methodFirstClassCallables = [];
-        foreach ($methodCallablesByFilePath as $collectedData) {
-            foreach ($collectedData as $collectedItem) {
-                $methodFirstClassCallables[] = $collectedItem[0];
+        foreach ($methodCallablesByFilePath as $methodCallables) {
+            foreach ($methodCallables as $methodCallable) {
+                $methodFirstClassCallables[] = $methodCallable[0];
             }
         }
 

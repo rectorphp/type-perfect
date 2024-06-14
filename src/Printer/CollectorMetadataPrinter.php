@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace Rector\TypePerfect\Printer;
 
+use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\IntersectionType as NodeIntersectionType;
+use PhpParser\Node\Name;
+use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\NullableType;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\UnionType;
@@ -65,7 +68,7 @@ final readonly class CollectorMetadataPrinter
         return implode('|', $stringArgTypes);
     }
 
-    public function printParamTypesToString(ClassMethod $classMethod): string
+    public function printParamTypesToString(ClassMethod $classMethod, ?string $className): string
     {
         $printedParamTypes = [];
         foreach ($classMethod->params as $param) {
@@ -74,14 +77,14 @@ final readonly class CollectorMetadataPrinter
                 continue;
             }
 
-            $paramType = $param->type;
+            $paramType = $this->transformSelfToClassName($param->type, $className);
             if ($paramType instanceof NullableType) {
                 // unite to phpstan type
                 $paramType = new UnionType([$paramType->type, new Identifier('null')]);
             }
 
             if ($paramType instanceof UnionType) {
-                $paramType = $this->resolveSortedUnionType($paramType);
+                $paramType = $this->resolveSortedUnionType($paramType, $className);
             }
 
             $printedParamType = $this->printerStandard->prettyPrint([$paramType]);
@@ -94,19 +97,36 @@ final readonly class CollectorMetadataPrinter
         return implode('|', $printedParamTypes);
     }
 
-    private function resolveSortedUnionType(UnionType $unionType): UnionType
+    private function transformSelfToClassName(Node $node, ?string $className): Node
+    {
+        if (! $node instanceof Name || $className === null) {
+            return $node;
+        }
+
+        if ($node->toString() !== 'self') {
+            return $node;
+        }
+
+        return new FullyQualified($className);
+    }
+
+    private function resolveSortedUnionType(UnionType $unionType, ?string $className): UnionType
     {
         $typeNames = [];
 
         foreach ($unionType->types as $type) {
             if ($type instanceof NodeIntersectionType) {
                 foreach ($type->types as $intersectionType) {
+                    /** @var FullyQualified $intersectionType */
+                    $intersectionType = $this->transformSelfToClassName($intersectionType, $className);
                     $typeNames[] = (string) $intersectionType;
                 }
 
                 continue;
             }
 
+            /** @var FullyQualified $type */
+            $type = $this->transformSelfToClassName($type, $className);
             $typeNames[] = (string) $type;
         }
 
