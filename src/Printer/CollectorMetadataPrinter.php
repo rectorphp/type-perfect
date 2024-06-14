@@ -110,11 +110,11 @@ final readonly class CollectorMetadataPrinter
         return new FullyQualified($className);
     }
 
-    private function resolveSortedTypes(UnionType|NodeIntersectionType $unionType, ?string $className): UnionType|NodeIntersectionType
+    private function resolveSortedTypes(UnionType|NodeIntersectionType $paramType, ?string $className): UnionType|NodeIntersectionType
     {
         $typeNames = [];
 
-        foreach ($unionType->types as $type) {
+        foreach ($paramType->types as $type) {
             if ($type instanceof NodeIntersectionType) {
                 foreach ($type->types as $intersectionType) {
                     /** @var Identifier|Name $intersectionType */
@@ -137,7 +137,7 @@ final readonly class CollectorMetadataPrinter
             $types[] = new Identifier($typeName);
         }
 
-        if ($unionType instanceof NodeIntersectionType) {
+        if ($paramType instanceof NodeIntersectionType) {
             return new NodeIntersectionType($types);
         }
 
