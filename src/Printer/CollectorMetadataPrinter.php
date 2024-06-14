@@ -83,8 +83,8 @@ final readonly class CollectorMetadataPrinter
                 $paramType = new UnionType([$paramType->type, new Identifier('null')]);
             }
 
-            if ($paramType instanceof UnionType) {
-                $paramType = $this->resolveSortedUnionType($paramType, $className);
+            if ($paramType instanceof UnionType || $paramType instanceof NodeIntersectionType) {
+                $paramType = $this->resolveSortedTypes($paramType, $className);
             }
 
             $printedParamType = $this->printerStandard->prettyPrint([$paramType]);
@@ -110,11 +110,11 @@ final readonly class CollectorMetadataPrinter
         return new FullyQualified($className);
     }
 
-    private function resolveSortedUnionType(UnionType $unionType, ?string $className): UnionType
+    private function resolveSortedTypes(UnionType|NodeIntersectionType $paramType, ?string $className): UnionType|NodeIntersectionType
     {
         $typeNames = [];
 
-        foreach ($unionType->types as $type) {
+        foreach ($paramType->types as $type) {
             if ($type instanceof NodeIntersectionType) {
                 foreach ($type->types as $intersectionType) {
                     /** @var Identifier|Name $intersectionType */
@@ -135,6 +135,10 @@ final readonly class CollectorMetadataPrinter
         $types = [];
         foreach ($typeNames as $typeName) {
             $types[] = new Identifier($typeName);
+        }
+
+        if ($paramType instanceof NodeIntersectionType) {
+            return new NodeIntersectionType($types);
         }
 
         return new UnionType($types);
