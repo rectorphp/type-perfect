@@ -15,6 +15,8 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\UnionType;
 use PhpParser\PrettyPrinter\Standard;
 use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\MethodReflection;
+use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\ClassStringType;
@@ -25,6 +27,7 @@ use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\ThisType;
 use PHPStan\Type\Type;
+use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\UnionType as PHPStanUnionType;
 use PHPStan\Type\VerbosityLevel;
 use Rector\TypePerfect\Enum\Types\ResolvedTypes;
@@ -38,11 +41,13 @@ final readonly class CollectorMetadataPrinter
         $this->printerStandard = new Standard();
     }
 
-    public function printArgTypesAsString(MethodCall $methodCall, Scope $scope): string
+    public function printArgTypesAsString(MethodCall $methodCall, MethodReflection $methodReflection, Scope $scope): string
     {
-        $stringArgTypes = [];
+        $parametersAcceptor = ParametersAcceptorSelector::selectFromArgs($scope, $methodCall->getArgs(), $methodReflection->getVariants(), $methodReflection->getNamedArgumentsVariants());
+        $parameters = $parametersAcceptor->getParameters();
 
-        foreach ($methodCall->getArgs() as $arg) {
+        $stringArgTypes = [];
+        foreach ($methodCall->getArgs() as $i => $arg) {
             $argType = $scope->getType($arg->value);
 
             // we have no idea, nothing we can do
@@ -60,6 +65,13 @@ final readonly class CollectorMetadataPrinter
 
             if ($argType instanceof ThisType) {
                 $argType = new ObjectType($argType->getClassName());
+            }
+
+            if (array_key_exists($i, $parameters)) {
+                $defaultValueType = $parameters[$i]->getDefaultValue();
+                if ($defaultValueType !== null) {
+                    $argType = TypeCombinator::union($argType, $defaultValueType);
+                }
             }
 
             $stringArgTypes[] = $this->printTypeToString($argType);

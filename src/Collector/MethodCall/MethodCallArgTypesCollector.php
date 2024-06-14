@@ -34,7 +34,13 @@ final readonly class MethodCallArgTypesCollector implements Collector
      */
     public function processNode(Node $node, Scope $scope): ?array
     {
-        if ($node->getArgs() === []) {
+        if ($node->getArgs() === [] || !$node->name instanceof Node\Identifier) {
+            return null;
+        }
+
+        $methodCalledOnType = $scope->getType($node->var);
+        $methodReflection = $scope->getMethodReflection($methodCalledOnType, $node->name->name);
+        if ($methodReflection === null) {
             return null;
         }
 
@@ -45,7 +51,7 @@ final readonly class MethodCallArgTypesCollector implements Collector
 
         $classMethodReference = $this->createClassMethodReference($classMethodCallReference);
 
-        $stringArgTypesString = $this->collectorMetadataPrinter->printArgTypesAsString($node, $scope);
+        $stringArgTypesString = $this->collectorMetadataPrinter->printArgTypesAsString($node, $methodReflection, $scope);
         return [$classMethodReference, $stringArgTypesString];
     }
 
