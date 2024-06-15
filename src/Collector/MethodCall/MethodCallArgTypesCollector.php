@@ -34,7 +34,7 @@ final readonly class MethodCallArgTypesCollector implements Collector
      */
     public function processNode(Node $node, Scope $scope): ?array
     {
-        if ($node->getArgs() === [] || !$node->name instanceof Node\Identifier) {
+        if ($node->isFirstClassCallable() || $node->getArgs() === [] || !$node->name instanceof Node\Identifier) {
             return null;
         }
 
