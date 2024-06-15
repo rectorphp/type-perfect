@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Rector\TypePerfect\Collector\MethodCall;
 
+use PhpParser\Node\Identifier;
+use PHPStan\Reflection\ExtendedMethodReflection;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Analyser\Scope;
@@ -34,13 +36,13 @@ final readonly class MethodCallArgTypesCollector implements Collector
      */
     public function processNode(Node $node, Scope $scope): ?array
     {
-        if ($node->isFirstClassCallable() || $node->getArgs() === [] || !$node->name instanceof Node\Identifier) {
+        if ($node->isFirstClassCallable() || $node->getArgs() === [] || !$node->name instanceof Identifier) {
             return null;
         }
 
         $methodCalledOnType = $scope->getType($node->var);
         $methodReflection = $scope->getMethodReflection($methodCalledOnType, $node->name->name);
-        if ($methodReflection === null) {
+        if (!$methodReflection instanceof ExtendedMethodReflection) {
             return null;
         }
 

@@ -16,7 +16,6 @@ use PhpParser\Node\UnionType;
 use PhpParser\PrettyPrinter\Standard;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ExtendedMethodReflection;
-use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
@@ -42,9 +41,9 @@ final readonly class CollectorMetadataPrinter
         $this->printerStandard = new Standard();
     }
 
-    public function printArgTypesAsString(MethodCall $methodCall, ExtendedMethodReflection $methodReflection, Scope $scope): string
+    public function printArgTypesAsString(MethodCall $methodCall, ExtendedMethodReflection $extendedMethodReflection, Scope $scope): string
     {
-        $parametersAcceptor = ParametersAcceptorSelector::selectFromArgs($scope, $methodCall->getArgs(), $methodReflection->getVariants(), $methodReflection->getNamedArgumentsVariants());
+        $parametersAcceptor = ParametersAcceptorSelector::selectFromArgs($scope, $methodCall->getArgs(), $extendedMethodReflection->getVariants(), $extendedMethodReflection->getNamedArgumentsVariants());
         $parameters = $parametersAcceptor->getParameters();
 
         $stringArgTypes = [];
@@ -70,7 +69,7 @@ final readonly class CollectorMetadataPrinter
 
             if (array_key_exists($i, $parameters)) {
                 $defaultValueType = $parameters[$i]->getDefaultValue();
-                if ($defaultValueType !== null) {
+                if ($defaultValueType instanceof Type) {
                     $argType = TypeCombinator::union($argType, $defaultValueType);
                 }
             }
