@@ -15,6 +15,7 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\UnionType;
 use PhpParser\PrettyPrinter\Standard;
 use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ExtendedMethodReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Type\ArrayType;
@@ -41,7 +42,7 @@ final readonly class CollectorMetadataPrinter
         $this->printerStandard = new Standard();
     }
 
-    public function printArgTypesAsString(MethodCall $methodCall, MethodReflection $methodReflection, Scope $scope): string
+    public function printArgTypesAsString(MethodCall $methodCall, ExtendedMethodReflection $methodReflection, Scope $scope): string
     {
         $parametersAcceptor = ParametersAcceptorSelector::selectFromArgs($scope, $methodCall->getArgs(), $methodReflection->getVariants(), $methodReflection->getNamedArgumentsVariants());
         $parameters = $parametersAcceptor->getParameters();
