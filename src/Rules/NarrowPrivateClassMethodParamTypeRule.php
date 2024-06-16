@@ -59,7 +59,7 @@ final readonly class NarrowPrivateClassMethodParamTypeRule implements Rule
      */
     public function processNode(Node $node, Scope $scope): array
     {
-        if (! $this->configuration->isNarrowEnabled()) {
+        if (! $this->configuration->isNarrowEnabled() || $node->isFirstClassCallable()) {
             return [];
         }
 
