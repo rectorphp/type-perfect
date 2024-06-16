@@ -31,18 +31,33 @@ use Rector\TypePerfect\NodeFinder\MethodCallNodeFinder;
  * @see \Rector\TypePerfect\Tests\Rules\CheckTypehintCallerTypeRule\CheckTypehintCallerTypeRuleTest
  * @implements Rule<MethodCall>
  */
-final readonly class NarrowPrivateClassMethodParamTypeRule implements Rule
+final class NarrowPrivateClassMethodParamTypeRule implements Rule
 {
+    /**
+     * @readonly
+     * @var \Rector\TypePerfect\Configuration
+     */
+    private $configuration;
+    /**
+     * @readonly
+     * @var \Rector\TypePerfect\NodeFinder\MethodCallNodeFinder
+     */
+    private $methodCallNodeFinder;
+    /**
+     * @readonly
+     * @var \Rector\TypePerfect\NodeFinder\ClassMethodNodeFinder
+     */
+    private $classMethodNodeFinder;
     /**
      * @var string
      */
     public const ERROR_MESSAGE = 'Parameter %d should use "%s" type as the only type passed to this method';
 
-    public function __construct(
-        private Configuration $configuration,
-        private MethodCallNodeFinder $methodCallNodeFinder,
-        private ClassMethodNodeFinder $classMethodNodeFinder
-    ) {
+    public function __construct(Configuration $configuration, MethodCallNodeFinder $methodCallNodeFinder, ClassMethodNodeFinder $classMethodNodeFinder)
+    {
+        $this->configuration = $configuration;
+        $this->methodCallNodeFinder = $methodCallNodeFinder;
+        $this->classMethodNodeFinder = $classMethodNodeFinder;
     }
 
     /**

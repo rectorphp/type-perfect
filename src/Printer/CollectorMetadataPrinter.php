@@ -32,9 +32,13 @@ use PHPStan\Type\UnionType as PHPStanUnionType;
 use PHPStan\Type\VerbosityLevel;
 use Rector\TypePerfect\Enum\Types\ResolvedTypes;
 
-final readonly class CollectorMetadataPrinter
+final class CollectorMetadataPrinter
 {
-    private Standard $printerStandard;
+    /**
+     * @readonly
+     * @var \PhpParser\PrettyPrinter\Standard
+     */
+    private $printerStandard;
 
     public function __construct()
     {
@@ -122,7 +126,11 @@ final readonly class CollectorMetadataPrinter
         return new FullyQualified($className);
     }
 
-    private function resolveSortedTypes(UnionType|NodeIntersectionType $paramType, ?string $className): UnionType|NodeIntersectionType
+    /**
+     * @param \PhpParser\Node\UnionType|NodeIntersectionType $paramType
+     * @return \PhpParser\Node\UnionType|NodeIntersectionType
+     */
+    private function resolveSortedTypes($paramType, ?string $className)
     {
         $typeNames = [];
 
