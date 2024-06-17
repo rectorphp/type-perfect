@@ -14,11 +14,12 @@ use PHPStan\Rules\Rule;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeWithClassName;
+use Rector\TypePerfect\Configuration;
 use Rector\TypePerfect\NodeFinder\ReturnNodeFinder;
 use Rector\TypePerfect\Reflection\MethodNodeAnalyser;
 
 /**
- * @see \Rector\TypePerfect\Tests\Rules\RequireSpecificReturnTypeOverAbstractRule\RequireSpecificReturnTypeOverAbstractRuleTest
+ * @see \Rector\TypePerfect\Tests\Rules\NarrowReturnObjectTypeRule\NarrowReturnObjectTypeRuleTest
  *
  * @implements Rule<ClassMethod>
  */
@@ -32,6 +33,7 @@ final readonly class NarrowReturnObjectTypeRule implements Rule
     public function __construct(
         private ReturnNodeFinder $returnNodeFinder,
         private MethodNodeAnalyser $methodNodeAnalyser,
+        private Configuration $configuration
     ) {
     }
 
@@ -49,6 +51,10 @@ final readonly class NarrowReturnObjectTypeRule implements Rule
      */
     public function processNode(Node $node, Scope $scope): array
     {
+        if (! $this->configuration->isNarrowEnabled()) {
+            return [];
+        }
+
         if (! $node->returnType instanceof FullyQualified) {
             return [];
         }
