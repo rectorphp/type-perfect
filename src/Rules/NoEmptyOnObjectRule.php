@@ -8,8 +8,10 @@ use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\Empty_;
+use PhpParser\Node\Expr\Variable;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
+use PHPStan\Type\TypeCombinator;
 
 /**
  * @implements Rule<Empty_>
@@ -48,7 +50,18 @@ final class NoEmptyOnObjectRule implements Rule
             return true;
         }
 
+        if ($expr instanceof Variable) {
+            if ($expr->name instanceof Expr) {
+                return true;
+            }
+
+            if (! $scope->hasVariableType($expr->name)->yes()) {
+                return true;
+            }
+        }
+
         $varType = $scope->getType($expr);
+        $varType = TypeCombinator::removeNull($varType);
         return $varType->getObjectClassNames() === [];
     }
 }

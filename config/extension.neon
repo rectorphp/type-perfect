@@ -18,6 +18,7 @@ rules:
     - Rector\TypePerfect\Rules\NoParamTypeRemovalRule
     - Rector\TypePerfect\Rules\NoArrayAccessOnObjectRule
     - Rector\TypePerfect\Rules\NoIssetOnObjectRule
+    - Rector\TypePerfect\Rules\NoEmptyOnObjectRule
 
     # turn on by the group name
 
