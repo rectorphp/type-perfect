@@ -10,6 +10,8 @@ final class IssetOnObject
 {
     public function run()
     {
+        $object = null;
+
         if (mt_rand(0, 100)) {
             $object = new stdClass();
         }
