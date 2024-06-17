@@ -2,6 +2,7 @@ parametersSchema:
     # see https://doc.nette.org/en/schema for configuration
     type_perfect: structure([
         narrow_param: bool()
+        narrow_return: bool()
         no_mixed: bool()
         null_over_false: bool()
     ])
@@ -10,6 +11,7 @@ parametersSchema:
 parameters:
     type_perfect:
         narrow_param: false
+        narrow_return: false
         no_mixed: false
         null_over_false: false
 
@@ -25,6 +27,8 @@ rules:
     # narrow_param
     - Rector\TypePerfect\Rules\NarrowPublicClassMethodParamTypeRule
     - Rector\TypePerfect\Rules\NarrowPrivateClassMethodParamTypeRule
+
+    # narrow_return
     - Rector\TypePerfect\Rules\NarrowReturnObjectTypeRule
 
     # no_mixed

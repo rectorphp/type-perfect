@@ -51,7 +51,7 @@ final readonly class NarrowReturnObjectTypeRule implements Rule
      */
     public function processNode(Node $node, Scope $scope): array
     {
-        if (! $this->configuration->isNarrowEnabled()) {
+        if (! $this->configuration->isNarrowReturnEnabled()) {
             return [];
         }
 

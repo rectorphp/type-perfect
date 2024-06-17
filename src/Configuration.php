@@ -15,14 +15,20 @@ final class Configuration
         // enabed by default in tests
         if (defined('PHPUNIT_COMPOSER_INSTALL')) {
             $this->parameters['narrow_param'] = true;
+            $this->parameters['narrow_return'] = true;
             $this->parameters['no_mixed'] = true;
             $this->parameters['null_over_false'] = true;
         }
     }
 
-    public function isNarrowEnabled(): bool
+    public function isNarrowParamEnabled(): bool
     {
         return $this->parameters['narrow_param'] ?? false;
+    }
+
+    public function isNarrowReturnEnabled(): bool
+    {
+        return $this->parameters['narrow_return'] ?? false;
     }
 
     public function isNoMixedEnabled(): bool
