@@ -23,10 +23,11 @@ final class NoIssetOnObjectRuleTest extends RuleTestCase
 
     public static function provideData(): Iterator
     {
-        yield [__DIR__ . '/Fixture/IssetOnObject.php', [[NoIssetOnObjectRule::ERROR_MESSAGE, 17]]];
+        yield [__DIR__ . '/Fixture/IssetOnObject.php', [[NoIssetOnObjectRule::ERROR_MESSAGE, 19]]];
 
         yield [__DIR__ . '/Fixture/SkipIssetOnArray.php', []];
         yield [__DIR__ . '/Fixture/SkipIssetOnArrayNestedOnObject.php', []];
+        yield [__DIR__ . '/Fixture/SkipPossibleUndefinedVariable.php', []];
     }
 
     /**
