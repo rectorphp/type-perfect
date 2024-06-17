@@ -26,7 +26,7 @@ jobs:
 
                     -
                         name: 'Coding Standard'
-                        run: composer fix-cs --ansi
+                        run: composer check-cs --ansi
 
                     -
                         name: 'Tests'

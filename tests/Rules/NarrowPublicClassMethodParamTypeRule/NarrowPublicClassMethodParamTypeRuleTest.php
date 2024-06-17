@@ -147,7 +147,7 @@ final class NarrowPublicClassMethodParamTypeRuleTest extends RuleTestCase
 
         $argErrorMessage = sprintf(NarrowPublicClassMethodParamTypeRule::ERROR_MESSAGE, 'int');
         yield [[
-            __DIR__ . '/Fixture/HandleDefaultValue.php'
+            __DIR__ . '/Fixture/HandleDefaultValue.php',
         ], [[$argErrorMessage, 15]]];
     }
 
