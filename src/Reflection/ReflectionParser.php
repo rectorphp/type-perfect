@@ -19,9 +19,13 @@ final class ReflectionParser
     /**
      * @var array<string, ClassLike>
      */
-    private array $classesByFilename = [];
+    private $classesByFilename = [];
 
-    private readonly Parser $parser;
+    /**
+     * @readonly
+     * @var \PhpParser\Parser
+     */
+    private $parser;
 
     public function __construct()
     {
@@ -39,7 +43,7 @@ final class ReflectionParser
         return $this->parseFilenameToClass($fileName);
     }
 
-    private function parseFilenameToClass(string $fileName): ClassLike|null
+    private function parseFilenameToClass(string $fileName): ?\PhpParser\Node\Stmt\ClassLike
     {
         if (isset($this->classesByFilename[$fileName])) {
             return $this->classesByFilename[$fileName];
@@ -58,7 +62,7 @@ final class ReflectionParser
             $nodeTraverser = new NodeTraverser();
             $nodeTraverser->addVisitor(new NameResolver());
             $nodeTraverser->traverse($stmts);
-        } catch (Throwable) {
+        } catch (Throwable $exception) {
             // not reachable
             return null;
         }
