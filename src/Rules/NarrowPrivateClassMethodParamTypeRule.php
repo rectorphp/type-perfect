@@ -28,7 +28,7 @@ use Rector\TypePerfect\NodeFinder\ClassMethodNodeFinder;
 use Rector\TypePerfect\NodeFinder\MethodCallNodeFinder;
 
 /**
- * @see \Rector\TypePerfect\Tests\Rules\CheckTypehintCallerTypeRule\CheckTypehintCallerTypeRuleTest
+ * @see \Rector\TypePerfect\Tests\Rules\NarrowPrivateClassMethodParamTypeRule\NarrowPrivateClassMethodParamTypeRuleTest
  * @implements Rule<MethodCall>
  */
 final readonly class NarrowPrivateClassMethodParamTypeRule implements Rule
