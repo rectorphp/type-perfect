@@ -28,6 +28,7 @@ final class NoIssetOnObjectRuleTest extends RuleTestCase
         yield [__DIR__ . '/Fixture/SkipIssetOnArray.php', []];
         yield [__DIR__ . '/Fixture/SkipIssetOnArrayNestedOnObject.php', []];
         yield [__DIR__ . '/Fixture/SkipPossibleUndefinedVariable.php', []];
+        yield [__DIR__ . '/Fixture/SkipIssetOnPropertyFetch.php', []];
     }
 
     /**

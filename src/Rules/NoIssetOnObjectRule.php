@@ -5,24 +5,26 @@ declare(strict_types=1);
 namespace Rector\TypePerfect\Rules;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr;
-use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\Isset_;
-use PhpParser\Node\Expr\Variable;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
-use PHPStan\Type\TypeCombinator;
+use Rector\TypePerfect\Guard\EmptyIssetGuard;
 
 /**
  * @see \Rector\TypePerfect\Tests\Rules\NoIssetOnObjectRule\NoIssetOnObjectRuleTest
  * @implements Rule<Isset_>
  */
-final class NoIssetOnObjectRule implements Rule
+final readonly class NoIssetOnObjectRule implements Rule
 {
     /**
      * @var string
      */
     public const ERROR_MESSAGE = 'Use instanceof instead of isset() on object';
+
+    public function __construct(
+        private EmptyIssetGuard $emptyIssetGuard
+    ) {
+    }
 
     public function getNodeType(): string
     {
@@ -37,7 +39,7 @@ final class NoIssetOnObjectRule implements Rule
     public function processNode(Node $node, Scope $scope): array
     {
         foreach ($node->vars as $var) {
-            if ($this->shouldSkipVariable($var, $scope)) {
+            if ($this->emptyIssetGuard->isLegal($var, $scope)) {
                 continue;
             }
 
@@ -47,26 +49,5 @@ final class NoIssetOnObjectRule implements Rule
         }
 
         return [];
-    }
-
-    private function shouldSkipVariable(Expr $expr, Scope $scope): bool
-    {
-        if ($expr instanceof ArrayDimFetch) {
-            return true;
-        }
-
-        if ($expr instanceof Variable) {
-            if ($expr->name instanceof Expr) {
-                return true;
-            }
-
-            if (! $scope->hasVariableType($expr->name)->yes()) {
-                return true;
-            }
-        }
-
-        $varType = $scope->getType($expr);
-        $varType = TypeCombinator::removeNull($varType);
-        return $varType->getObjectClassNames() === [];
     }
 }
