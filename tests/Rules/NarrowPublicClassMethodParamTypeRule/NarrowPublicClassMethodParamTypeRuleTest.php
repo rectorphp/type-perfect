@@ -153,6 +153,10 @@ final class NarrowPublicClassMethodParamTypeRuleTest extends RuleTestCase
             __DIR__ . '/Fixture/SkipCallable.php',
         ], []];
 
+        yield [[
+            __DIR__ . '/Fixture/SkipEnum.php',
+        ], []];
+
         $argErrorMessage = sprintf(NarrowPublicClassMethodParamTypeRule::ERROR_MESSAGE, 'int');
         yield [[
             __DIR__ . '/Fixture/HandleDefaultValue.php',
