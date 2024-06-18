@@ -21,6 +21,7 @@ use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\ClassStringType;
 use PHPStan\Type\ClosureType;
+use PHPStan\Type\Enum\EnumCaseObjectType;
 use PHPStan\Type\IntegerRangeType;
 use PHPStan\Type\IntersectionType;
 use PHPStan\Type\MixedType;
@@ -179,7 +180,7 @@ final readonly class CollectorMetadataPrinter
             return 'callable';
         }
 
-        if ($type instanceof \PHPStan\Type\Enum\EnumCaseObjectType) {
+        if ($type instanceof EnumCaseObjectType) {
             return $type->getClassName();
         }
 
