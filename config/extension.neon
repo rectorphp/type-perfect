@@ -54,6 +54,7 @@ services:
     - Rector\TypePerfect\Matcher\Collector\PublicClassMethodMatcher
     - Rector\TypePerfect\Matcher\ClassMethodCallReferenceResolver
     - Rector\TypePerfect\Printer\CollectorMetadataPrinter
+    - Rector\TypePerfect\Guard\EmptyIssetGuard
 
     # for NarrowPublicClassMethodParamTypeByCallerTypeRule
     -
