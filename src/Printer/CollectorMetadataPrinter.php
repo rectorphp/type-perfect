@@ -179,6 +179,10 @@ final readonly class CollectorMetadataPrinter
             return 'callable';
         }
 
+        if ($type instanceof \PHPStan\Type\Enum\EnumCaseObjectType) {
+            return $type->getClassName();
+        }
+
         return $type->describe(VerbosityLevel::typeOnly());
     }
 }
