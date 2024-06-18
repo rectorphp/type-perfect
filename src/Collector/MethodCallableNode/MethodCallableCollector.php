@@ -18,13 +18,17 @@ use Rector\TypePerfect\ValueObject\MethodCallReference;
  *
  * @see https://github.com/phpstan/phpstan-src/blob/511c1e435fb43b8eb0ac310e6aa3230147963790/src/Analyser/NodeScopeResolver.php#L1936
  */
-final readonly class MethodCallableCollector implements Collector
+final class MethodCallableCollector implements Collector
 {
-    public function __construct(
-        private ClassMethodCallReferenceResolver $classMethodCallReferenceResolver,
-    ) {
+    /**
+     * @readonly
+     * @var \Rector\TypePerfect\Matcher\ClassMethodCallReferenceResolver
+     */
+    private $classMethodCallReferenceResolver;
+    public function __construct(ClassMethodCallReferenceResolver $classMethodCallReferenceResolver)
+    {
+        $this->classMethodCallReferenceResolver = $classMethodCallReferenceResolver;
     }
-
     public function getNodeType(): string
     {
         return MethodCallableNode::class;
