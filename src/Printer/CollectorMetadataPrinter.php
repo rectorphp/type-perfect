@@ -100,6 +100,7 @@ final readonly class CollectorMetadataPrinter
             }
 
             $printedParamType = $this->printerStandard->prettyPrint([$paramType]);
+            $printedParamType = str_replace('\Closure', 'callable', $printedParamType);
             $printedParamType = ltrim($printedParamType, '\\');
             $printedParamType = str_replace('|\\', '|', $printedParamType);
 
