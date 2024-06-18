@@ -11,6 +11,7 @@ use PhpParser\Node\Stmt\Return_;
 use PhpParser\NodeFinder;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
+use PHPStan\Type\BooleanType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use Rector\TypePerfect\Configuration;
 
@@ -62,6 +63,9 @@ final readonly class ReturnNullOverFalseRule implements Rule
         /** @var Return_[] $returns */
         $returns = $this->nodeFinder->findInstanceOf($node->stmts, Return_::class);
 
+        $hasFalseType = false;
+        $hasTrueType = false;
+
         foreach ($returns as $return) {
             if (! $return->expr instanceof Expr) {
                 continue;
@@ -69,13 +73,22 @@ final readonly class ReturnNullOverFalseRule implements Rule
 
             $exprType = $scope->getType($return->expr);
             if (! $exprType instanceof ConstantBooleanType) {
+                if ($exprType instanceof BooleanType) {
+                    return [];
+                }
+
                 continue;
             }
 
             if ($exprType->getValue()) {
+                $hasTrueType = true;
                 continue;
             }
 
+            $hasFalseType = true;
+        }
+
+        if (! $hasTrueType && $hasFalseType) {
             return [
                 self::ERROR_MESSAGE,
             ];
