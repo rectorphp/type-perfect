@@ -83,6 +83,19 @@ $id = $article->getId();
 
 Next rules you can enable by configuration. We take them from the simplest to more powerful, in the same order we apply them on legacy projects.
 
+You can enable them all at once:
+
+```yaml
+parameters:
+    type_perfect:
+        no_mixed: true
+        null_over_false: true
+        narrow_param: true
+        narrow_return: true
+```
+
+Or one by one:
+
 <br>
 
 ## 1. Null over False
@@ -170,7 +183,7 @@ This group makes sure all property fetches and methods call know their type they
 
 ## 3. Narrow Param Types
 
-Last but not least, the narrowed param type declarations, the reliable the code.
+The more narrow param type we have, the reliable the code is. `string` beats `mixed`, `int` beats `scalar` and `ExactObject` beats `stdClass`.
 
 ```yaml
 parameters:
@@ -213,6 +226,84 @@ That's where this group comes in. It checks all the passed types, and tells us k
 :heavy_check_mark:
 
 <br>
+
+## 4. Narrow Return Types
+
+Last but not least, the more narrow return type, the more reliable the code.
+
+```yaml
+parameters:
+    type_perfect:
+        narrow_return: true
+```
+
+Where does it help? Let's say we have 2 types of talks, that do have different behavior:
+
+```php
+final class ConferenceTalk extends Talk
+{
+    public function bookHotel()
+    {
+        // ...
+    }
+}
+
+final class MeetupTalk extends Talk
+{
+    public function bookTrain()
+    {
+        // ...
+    }
+}
+```
+
+Then we have a factory (repository, or services) that returns generic `Talk` type:
+
+```php
+final class TalkFactory
+{
+    public function createConferenceTalk(): Talk
+    {
+        return new ConferenceTalk();
+    }
+
+    public function createMeetupTalk(): Talk
+    {
+        return new MeetupTalk();
+    }
+}
+```
+
+In this case we've just lost strict type and have to verify the type on runtime:
+
+```php
+$talk instanceof ConferenceTalk
+```
+
+:no_good:
+
+↓
+
+That's where this group comes in. In case we return the exact type, we should use exact type in return type declaration to keep the code as reliable as possible:
+
+```diff
+ final class TalkFactory
+ {
+-    public function createConferenceTalk(): Talk
++    public function createConferenceTalk(): ConferenceTalk
+     {
+         return new ConferenceTalk();
+     }
+
+-    public function createMeetupTalk(): Talk
++    public function createMeetupTalk(): MeetupTalk
+     {
+         return new MeetupTalk();
+     }
+}
+```
+
+:heavy_check_mark:
 
 Add sets one by one, fix what you find helpful and ignore the rest.
 
