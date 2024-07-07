@@ -14,16 +14,21 @@ use Rector\TypePerfect\Guard\EmptyIssetGuard;
  * @see \Rector\TypePerfect\Tests\Rules\NoIssetOnObjectRule\NoIssetOnObjectRuleTest
  * @implements Rule<Isset_>
  */
-final readonly class NoIssetOnObjectRule implements Rule
+final class NoIssetOnObjectRule implements Rule
 {
+    /**
+     * @readonly
+     * @var \Rector\TypePerfect\Guard\EmptyIssetGuard
+     */
+    private $emptyIssetGuard;
     /**
      * @var string
      */
     public const ERROR_MESSAGE = 'Use instanceof instead of isset() on object';
 
-    public function __construct(
-        private EmptyIssetGuard $emptyIssetGuard
-    ) {
+    public function __construct(EmptyIssetGuard $emptyIssetGuard)
+    {
+        $this->emptyIssetGuard = $emptyIssetGuard;
     }
 
     public function getNodeType(): string

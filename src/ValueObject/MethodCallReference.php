@@ -4,12 +4,22 @@ declare(strict_types=1);
 
 namespace Rector\TypePerfect\ValueObject;
 
-final readonly class MethodCallReference
+final class MethodCallReference
 {
-    public function __construct(
-        private string $class,
-        private string $method
-    ) {
+    /**
+     * @readonly
+     * @var string
+     */
+    private $class;
+    /**
+     * @readonly
+     * @var string
+     */
+    private $method;
+    public function __construct(string $class, string $method)
+    {
+        $this->class = $class;
+        $this->method = $method;
     }
 
     public function getClass(): string
