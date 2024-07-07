@@ -24,7 +24,7 @@ final class NoArrayAccessOnObjectRule implements Rule
     /**
      * @var string[]
      */
-    private const ALLOWED_CLASSES = ['SplFixedArray', 'SimpleXMLElement', 'Iterator', 'Aws\ResultInterface', 'Symfony\Component\Form\FormInterface'];
+    private const ALLOWED_CLASSES = ['SplFixedArray', 'SimpleXMLElement', 'Iterator', 'Aws\ResultInterface', 'Symfony\Component\Form\FormInterface', 'Symfony\Component\OptionsResolver\Options'];
 
     /**
      * @return class-string<Node>
