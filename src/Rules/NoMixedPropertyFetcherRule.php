@@ -10,6 +10,7 @@ use PhpParser\PrettyPrinter\Standard;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Type\MixedType;
+use Rector\TypePerfect\Configuration;
 
 /**
  * @see \Rector\TypePerfect\Tests\Rules\NoMixedPropertyFetcherRule\NoMixedPropertyFetcherRuleTest
@@ -24,6 +25,7 @@ final readonly class NoMixedPropertyFetcherRule implements Rule
 
     public function __construct(
         private Standard $standard,
+        private Configuration $configuration,
     ) {
     }
 
@@ -41,6 +43,10 @@ final readonly class NoMixedPropertyFetcherRule implements Rule
      */
     public function processNode(Node $node, Scope $scope): array
     {
+        if (! $this->configuration->isNoMixedEnabled()) {
+            return [];
+        }
+
         $callerType = $scope->getType($node->var);
         if (! $callerType instanceof MixedType) {
             return [];
