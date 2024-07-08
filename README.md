@@ -20,7 +20,7 @@ If you care about code quality and type safety, add these 10 rules to your CI.
 composer require rector/type-perfect --dev
 ```
 
-*Note: Make sure you use [`phpstan/extension-installer`](https://github.com/phpstan/extension-installer#usage) to load the necessary service configs.*
+*Note: Make sure you use [`phpstan/extension-installer`](https://github.com/phpstan/extension-installer#usage) to load the necessary service configs or include `vendor/rector/type-perfect/config/extension.neon` file.*
 
 <br>
 
