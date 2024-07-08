@@ -28,6 +28,7 @@ final class NoEmptyOnObjectRuleTest extends RuleTestCase
         yield [__DIR__ . '/Fixture/SkipEmptyOnArray.php', []];
         yield [__DIR__ . '/Fixture/SkipEmptyOnArrayNestedOnObject.php', []];
         yield [__DIR__ . '/Fixture/SkipPossibleUndefinedVariable.php', []];
+        yield [__DIR__ . '/Fixture/SkipPhpDocType.php', []];
     }
 
     /**
