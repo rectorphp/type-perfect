@@ -30,7 +30,7 @@ final class EmptyIssetGuard
             return true;
         }
 
-        $varType = $scope->getType($expr);
+        $varType = $scope->getNativeType($expr);
         $varType = TypeCombinator::removeNull($varType);
         return $varType->getObjectClassNames() === [];
     }
