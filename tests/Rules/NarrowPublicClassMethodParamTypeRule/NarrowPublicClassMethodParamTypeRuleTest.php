@@ -161,6 +161,12 @@ final class NarrowPublicClassMethodParamTypeRuleTest extends RuleTestCase
         yield [[
             __DIR__ . '/Fixture/HandleDefaultValue.php',
         ], [[$argErrorMessage, 15]]];
+
+        yield [[
+            __DIR__ . '/Fixture/SkipArrayGenerics.php',
+            __DIR__ . '/Source/ArrayCaller.php',
+        ], []];
+
     }
 
     /**
