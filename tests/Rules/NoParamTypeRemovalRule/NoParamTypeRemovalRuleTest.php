@@ -23,6 +23,7 @@ final class NoParamTypeRemovalRuleTest extends RuleTestCase
 
     public static function provideData(): Iterator
     {
+        yield [__DIR__ . '/Fixture/SkipConstruct.php', []];
         yield [__DIR__ . '/Fixture/SkipPhpDocType.php', []];
         yield [__DIR__ . '/Fixture/SkipPresentType.php', []];
         yield [__DIR__ . '/Fixture/SkipNoType.php', []];
