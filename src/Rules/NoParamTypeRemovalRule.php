@@ -48,6 +48,10 @@ final readonly class NoParamTypeRemovalRule implements Rule
         }
 
         $classMethodName = (string) $node->name;
+        if ($classMethodName === '__construct') {
+            return [];
+        }
+
         $parentClassMethodReflection = $this->methodNodeAnalyser->matchFirstParentClassMethod($scope, $classMethodName);
         if (! $parentClassMethodReflection instanceof PhpMethodReflection) {
             return [];
