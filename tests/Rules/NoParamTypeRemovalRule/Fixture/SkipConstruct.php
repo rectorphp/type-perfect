@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Rector\TypePerfect\Tests\Rules\NoParamTypeRemovalRule\Fixture;
 
-class SkipConstruct extends ParentClass
+class SkipConstruct extends ParentConstructorClass
 {
     public function __construct($someArg, $someOther)
     {
@@ -12,7 +12,7 @@ class SkipConstruct extends ParentClass
     }
 }
 
-class ParentClass
+class ParentConstructorClass
 {
     public function __construct(string $string, int $int)
     {
