@@ -43,7 +43,7 @@ final readonly class NoMixedPropertyFetcherRule implements Rule
      */
     public function processNode(Node $node, Scope $scope): array
     {
-        if (! $this->configuration->isNoMixedEnabled()) {
+        if (! $this->configuration->isNoMixedPropertyEnabled()) {
             return [];
         }
 

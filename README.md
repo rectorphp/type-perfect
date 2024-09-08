@@ -88,7 +88,8 @@ You can enable them all at once:
 ```yaml
 parameters:
     type_perfect:
-        no_mixed: true
+        no_mixed_property: true
+        no_mixed_caller: true
         null_over_false: true
         narrow_param: true
         narrow_return: true
@@ -140,15 +141,56 @@ public function getProduct(): ?Product
 
 <br>
 
-## 2. No mixed Caller
+## 2. No mixed Property
 
 ```yaml
 parameters:
     type_perfect:
-        no_mixed: true
+        no_mixed_property: true
 ```
 
-This group of rules focuses on PHPStan blind spot. If we have a property/method call with unknown type, PHPStan is not be able to analyse it. It silently ignores it.
+This rule focuses on PHPStan blind spot while fetching a property. If we have a property with unknown type, PHPStan is not be able to analyse it. It silently ignores it.
+
+```php
+private $someType;
+
+public function run()
+{
+    $this->someType->vale;
+}
+```
+
+It doesn't see there is a typo in `vale` property name. It should be `value`
+
+:no_good:
+
+↓
+
+
+```php
+private SomeType $someType;
+
+public function run()
+{
+    $this->someType->value;
+}
+```
+
+This rule makes sure all property fetches know their type they're called on.
+
+:heavy_check_mark:
+
+<br>
+
+## 3. No mixed Caller
+
+```yaml
+parameters:
+    type_perfect:
+        no_mixed_caller: true
+```
+
+Same as above, only for method calls:
 
 ```php
 private $someType;
@@ -175,13 +217,13 @@ public function run()
 }
 ```
 
-This group makes sure all property fetches and methods call know their type they're called on.
+This group makes sure methods call know their type they're called on.
 
 :heavy_check_mark:
 
 <br>
 
-## 3. Narrow Param Types
+## 4. Narrow Param Types
 
 The more narrow param type we have, the reliable the code is. `string` beats `mixed`, `int` beats `scalar` and `ExactObject` beats `stdClass`.
 
@@ -227,7 +269,7 @@ That's where this group comes in. It checks all the passed types, and tells us k
 
 <br>
 
-## 4. Narrow Return Types
+## 5. Narrow Return Types
 
 Last but not least, the more narrow return type, the more reliable the code.
 
