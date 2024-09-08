@@ -5,6 +5,10 @@ parametersSchema:
         narrow_return: bool()
         no_mixed: bool()
         null_over_false: bool()
+
+        # replace for no_mixed
+        no_mixed_property: bool()
+        no_mixed_caller: bool()
     ])
 
 # defaults
@@ -14,6 +18,9 @@ parameters:
         narrow_return: false
         no_mixed: false
         null_over_false: false
+        # priority override of no_mixed
+        no_mixed_property: false
+        no_mixed_caller: false
 
 rules:
     # enabled by default

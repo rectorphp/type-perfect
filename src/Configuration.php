@@ -31,8 +31,21 @@ final class Configuration
         return $this->parameters['narrow_return'] ?? false;
     }
 
-    public function isNoMixedEnabled(): bool
+    public function isNoMixedPropertyEnabled(): bool
     {
+        if ($this->parameters['no_mixed_property']) {
+            return true;
+        }
+
+        return $this->parameters['no_mixed'] ?? false;
+    }
+
+    public function isNoMixedCallerEnabled(): bool
+    {
+        if ($this->parameters['no_mixed_caller']) {
+            return true;
+        }
+
         return $this->parameters['no_mixed'] ?? false;
     }
 

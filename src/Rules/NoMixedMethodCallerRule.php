@@ -44,7 +44,7 @@ final readonly class NoMixedMethodCallerRule implements Rule
      */
     public function processNode(Node $node, Scope $scope): array
     {
-        if (! $this->configuration->isNoMixedEnabled()) {
+        if (! $this->configuration->isNoMixedCallerEnabled()) {
             return [];
         }
 
