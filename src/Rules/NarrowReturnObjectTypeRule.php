@@ -99,7 +99,7 @@ final readonly class NarrowReturnObjectTypeRule implements Rule
 
         return [
             RuleErrorBuilder::message($errorMessage)
-                ->identifier(ucfirst(basename(str_replace('\\', '/', self::class))))
+                ->identifier('typePerfect.narrowReturnObjectType')
                 ->build(),
         ];
     }

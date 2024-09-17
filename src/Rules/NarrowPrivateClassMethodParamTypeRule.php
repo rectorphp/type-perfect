@@ -175,7 +175,7 @@ final readonly class NarrowPrivateClassMethodParamTypeRule implements Rule
         $errorMessage = sprintf(self::ERROR_MESSAGE, $position + 1, $argTypeAsString);
 
         return RuleErrorBuilder::message($errorMessage)
-            ->identifier(ucfirst(basename(str_replace('\\', '/', self::class))))
+            ->identifier('typePerfect.narrowPrivateClassMethodParamType')
             ->line($param->getLine())
             ->build();
     }

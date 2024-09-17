@@ -53,7 +53,7 @@ final class NoArrayAccessOnObjectRule implements Rule
 
         return [
             RuleErrorBuilder::message(self::ERROR_MESSAGE)
-                ->identifier(ucfirst(basename(str_replace('\\', '/', self::class))))
+                ->identifier('typePerfect.noArrayAccessOnObject')
                 ->build(),
         ];
     }

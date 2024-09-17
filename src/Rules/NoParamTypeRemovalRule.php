@@ -72,7 +72,7 @@ final readonly class NoParamTypeRemovalRule implements Rule
             // removed param type!
             return [
                 RuleErrorBuilder::message(self::ERROR_MESSAGE)
-                    ->identifier(ucfirst(basename(str_replace('\\', '/', self::class))))
+                    ->identifier('typePerfect.noParamTypeRemoval')
                     ->build(),
             ];
         }

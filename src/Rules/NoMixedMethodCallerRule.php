@@ -69,7 +69,7 @@ final readonly class NoMixedMethodCallerRule implements Rule
 
         return [
             RuleErrorBuilder::message(sprintf(self::ERROR_MESSAGE, $printedMethodCall))
-                ->identifier(ucfirst(basename(str_replace('\\', '/', self::class))))
+                ->identifier('typePerfect.noMixedMethodCaller')
                 ->build(),
         ];
     }

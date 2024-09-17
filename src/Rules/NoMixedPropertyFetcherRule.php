@@ -58,7 +58,7 @@ final readonly class NoMixedPropertyFetcherRule implements Rule
 
         return [
             RuleErrorBuilder::message(sprintf(self::ERROR_MESSAGE, $printedVar))
-                ->identifier(ucfirst(basename(str_replace('\\', '/', self::class))))
+                ->identifier('typePerfect.noMixedPropertyFetcher')
                 ->build(),
         ];
     }

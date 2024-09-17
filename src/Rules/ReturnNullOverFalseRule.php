@@ -93,7 +93,7 @@ final readonly class ReturnNullOverFalseRule implements Rule
         if (! $hasTrueType && $hasFalseType) {
             return [
                 RuleErrorBuilder::message(self::ERROR_MESSAGE)
-                    ->identifier(ucfirst(basename(str_replace('\\', '/', self::class))))
+                    ->identifier('typePerfect.nullOverFalse')
                     ->build(),
             ];
         }
