@@ -8,6 +8,8 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\ArrayDimFetch;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleError;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\ObjectType;
 
 /**
@@ -36,7 +38,7 @@ final class NoArrayAccessOnObjectRule implements Rule
 
     /**
      * @param ArrayDimFetch $node
-     * @return string[]
+     * @return RuleError[]
      */
     public function processNode(Node $node, Scope $scope): array
     {
@@ -50,7 +52,9 @@ final class NoArrayAccessOnObjectRule implements Rule
         }
 
         return [
-            self::ERROR_MESSAGE,
+            RuleErrorBuilder::message(self::ERROR_MESSAGE)
+                ->identifier(ucfirst(basename(str_replace('\\', '/', self::class))))
+                ->build(),
         ];
     }
 

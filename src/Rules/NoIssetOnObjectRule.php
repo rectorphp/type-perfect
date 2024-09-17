@@ -8,6 +8,8 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\Isset_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleError;
+use PHPStan\Rules\RuleErrorBuilder;
 use Rector\TypePerfect\Guard\EmptyIssetGuard;
 
 /**
@@ -34,7 +36,7 @@ final readonly class NoIssetOnObjectRule implements Rule
     /**
      * @param Isset_ $node
      *
-     * @return string[]
+     * @return RuleError[]
      */
     public function processNode(Node $node, Scope $scope): array
     {
@@ -44,7 +46,9 @@ final readonly class NoIssetOnObjectRule implements Rule
             }
 
             return [
-                self::ERROR_MESSAGE,
+                RuleErrorBuilder::message(self::ERROR_MESSAGE)
+                    ->identifier(ucfirst(basename(str_replace('\\', '/', self::class))))
+                    ->build(),
             ];
         }
 

@@ -11,6 +11,8 @@ use PhpParser\Node\Stmt\Return_;
 use PhpParser\NodeFinder;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleError;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use Rector\TypePerfect\Configuration;
@@ -44,7 +46,7 @@ final readonly class ReturnNullOverFalseRule implements Rule
 
     /**
      * @param ClassMethod $node
-     * @return string[]
+     * @return RuleError[]
      */
     public function processNode(Node $node, Scope $scope): array
     {
@@ -90,7 +92,9 @@ final readonly class ReturnNullOverFalseRule implements Rule
 
         if (! $hasTrueType && $hasFalseType) {
             return [
-                self::ERROR_MESSAGE,
+                RuleErrorBuilder::message(self::ERROR_MESSAGE)
+                    ->identifier(ucfirst(basename(str_replace('\\', '/', self::class))))
+                    ->build(),
             ];
         }
 
