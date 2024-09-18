@@ -8,6 +8,7 @@ use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Collectors\Collector;
 use PHPStan\Node\MethodCallableNode;
+use Rector\TypePerfect\Configuration;
 use Rector\TypePerfect\Matcher\ClassMethodCallReferenceResolver;
 use Rector\TypePerfect\ValueObject\MethodCallReference;
 
@@ -22,6 +23,7 @@ final readonly class MethodCallableCollector implements Collector
 {
     public function __construct(
         private ClassMethodCallReferenceResolver $classMethodCallReferenceResolver,
+        private Configuration $configuration
     ) {
     }
 
@@ -36,6 +38,10 @@ final readonly class MethodCallableCollector implements Collector
      */
     public function processNode(Node $node, Scope $scope): ?array
     {
+        if (! $this->configuration->isNarrowParamEnabled()) {
+            return null;
+        }
+
         $classMethodCallReference = $this->classMethodCallReferenceResolver->resolve($node, $scope, true);
         if (! $classMethodCallReference instanceof MethodCallReference) {
             return null;

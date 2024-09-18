@@ -9,6 +9,7 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
 use PHPStan\Collectors\Collector;
 use PHPStan\Reflection\ClassReflection;
+use Rector\TypePerfect\Configuration;
 use Rector\TypePerfect\Matcher\Collector\PublicClassMethodMatcher;
 use Rector\TypePerfect\PhpDoc\ApiDocStmtAnalyzer;
 use Rector\TypePerfect\Printer\CollectorMetadataPrinter;
@@ -21,7 +22,8 @@ final readonly class PublicClassMethodParamTypesCollector implements Collector
     public function __construct(
         private ApiDocStmtAnalyzer $apiDocStmtAnalyzer,
         private PublicClassMethodMatcher $publicClassMethodMatcher,
-        private CollectorMetadataPrinter $collectorMetadataPrinter
+        private CollectorMetadataPrinter $collectorMetadataPrinter,
+        private Configuration $configuration
     ) {
     }
 
@@ -36,6 +38,10 @@ final readonly class PublicClassMethodParamTypesCollector implements Collector
      */
     public function processNode(Node $node, Scope $scope): ?array
     {
+        if (! $this->configuration->isNarrowParamEnabled()) {
+            return null;
+        }
+
         if ($node->params === []) {
             return null;
         }
