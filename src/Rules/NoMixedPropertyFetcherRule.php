@@ -9,6 +9,8 @@ use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\PrettyPrinter\Standard;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleError;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\MixedType;
 use Rector\TypePerfect\Configuration;
 
@@ -39,7 +41,7 @@ final readonly class NoMixedPropertyFetcherRule implements Rule
 
     /**
      * @param PropertyFetch $node
-     * @return mixed[]
+     * @return RuleError[]
      */
     public function processNode(Node $node, Scope $scope): array
     {
@@ -54,6 +56,10 @@ final readonly class NoMixedPropertyFetcherRule implements Rule
 
         $printedVar = $this->standard->prettyPrintExpr($node->var);
 
-        return [sprintf(self::ERROR_MESSAGE, $printedVar)];
+        return [
+            RuleErrorBuilder::message(sprintf(self::ERROR_MESSAGE, $printedVar))
+                ->identifier('typePerfect.noMixedPropertyFetcher')
+                ->build(),
+        ];
     }
 }

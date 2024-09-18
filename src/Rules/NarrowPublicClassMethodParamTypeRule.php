@@ -73,6 +73,7 @@ final readonly class NarrowPublicClassMethodParamTypeRule implements Rule
                 }
 
                 $ruleErrors[] = RuleErrorBuilder::message(sprintf(self::ERROR_MESSAGE, $uniqueCollectedArgTypesString))
+                    ->identifier('typePerfect.narrowPublicClassMethodParamType')
                     ->file($filePath)
                     ->line($line)
                     ->build();

@@ -8,6 +8,8 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\Empty_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleError;
+use PHPStan\Rules\RuleErrorBuilder;
 use Rector\TypePerfect\Guard\EmptyIssetGuard;
 
 /**
@@ -32,7 +34,7 @@ final readonly class NoEmptyOnObjectRule implements Rule
 
     /**
      * @param Empty_ $node
-     * @return string[]
+     * @return RuleError[]
      */
     public function processNode(Node $node, Scope $scope): array
     {
@@ -41,7 +43,9 @@ final readonly class NoEmptyOnObjectRule implements Rule
         }
 
         return [
-            self::ERROR_MESSAGE,
+            RuleErrorBuilder::message(self::ERROR_MESSAGE)
+                ->identifier('typePerfect.noEmptyOnObject')
+                ->build(),
         ];
     }
 }

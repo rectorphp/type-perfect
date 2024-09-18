@@ -9,6 +9,8 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\PrettyPrinter\Standard;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleError;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\MixedType;
 use Rector\TypePerfect\Configuration;
@@ -40,7 +42,7 @@ final readonly class NoMixedMethodCallerRule implements Rule
 
     /**
      * @param MethodCall $node
-     * @return mixed[]
+     * @return RuleError[]
      */
     public function processNode(Node $node, Scope $scope): array
     {
@@ -66,7 +68,9 @@ final readonly class NoMixedMethodCallerRule implements Rule
         $printedMethodCall = $this->printerStandard->prettyPrintExpr($node->var);
 
         return [
-            sprintf(self::ERROR_MESSAGE, $printedMethodCall),
+            RuleErrorBuilder::message(sprintf(self::ERROR_MESSAGE, $printedMethodCall))
+                ->identifier('typePerfect.noMixedMethodCaller')
+                ->build(),
         ];
     }
 

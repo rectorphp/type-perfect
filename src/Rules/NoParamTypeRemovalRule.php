@@ -9,6 +9,8 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\Php\PhpMethodReflection;
 use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleError;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use Rector\TypePerfect\Reflection\MethodNodeAnalyser;
@@ -39,7 +41,7 @@ final readonly class NoParamTypeRemovalRule implements Rule
 
     /**
      * @param ClassMethod $node
-     * @return string[]
+     * @return RuleError[]
      */
     public function processNode(Node $node, Scope $scope): array
     {
@@ -68,7 +70,11 @@ final readonly class NoParamTypeRemovalRule implements Rule
             }
 
             // removed param type!
-            return [self::ERROR_MESSAGE];
+            return [
+                RuleErrorBuilder::message(self::ERROR_MESSAGE)
+                    ->identifier('typePerfect.noParamTypeRemoval')
+                    ->build(),
+            ];
         }
 
         return [];

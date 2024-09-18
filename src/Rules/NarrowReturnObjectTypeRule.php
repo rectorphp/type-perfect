@@ -11,6 +11,8 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleError;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeWithClassName;
@@ -47,7 +49,7 @@ final readonly class NarrowReturnObjectTypeRule implements Rule
 
     /**
      * @param ClassMethod $node
-     * @return mixed[]
+     * @return RuleError[]
      */
     public function processNode(Node $node, Scope $scope): array
     {
@@ -94,7 +96,12 @@ final readonly class NarrowReturnObjectTypeRule implements Rule
 
         /** @var TypeWithClassName $returnExprType */
         $errorMessage = sprintf(self::ERROR_MESSAGE, $returnExprType->getClassName());
-        return [$errorMessage];
+
+        return [
+            RuleErrorBuilder::message($errorMessage)
+                ->identifier('typePerfect.narrowReturnObjectType')
+                ->build(),
+        ];
     }
 
     private function shouldSkipReturnObjectType(ObjectType $objectType): bool
