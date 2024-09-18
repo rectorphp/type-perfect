@@ -10,6 +10,7 @@ use PhpParser\Node\Identifier;
 use PHPStan\Analyser\Scope;
 use PHPStan\Collectors\Collector;
 use PHPStan\Reflection\ExtendedMethodReflection;
+use Rector\TypePerfect\Configuration;
 use Rector\TypePerfect\Matcher\ClassMethodCallReferenceResolver;
 use Rector\TypePerfect\Printer\CollectorMetadataPrinter;
 use Rector\TypePerfect\ValueObject\MethodCallReference;
@@ -22,6 +23,7 @@ final readonly class MethodCallArgTypesCollector implements Collector
     public function __construct(
         private ClassMethodCallReferenceResolver $classMethodCallReferenceResolver,
         private CollectorMetadataPrinter $collectorMetadataPrinter,
+        private Configuration $configuration
     ) {
     }
 
@@ -36,6 +38,10 @@ final readonly class MethodCallArgTypesCollector implements Collector
      */
     public function processNode(Node $node, Scope $scope): ?array
     {
+        if (! $this->configuration->isNarrowParamEnabled()) {
+            return null;
+        }
+
         if ($node->isFirstClassCallable() || $node->getArgs() === [] || ! $node->name instanceof Identifier) {
             return null;
         }
