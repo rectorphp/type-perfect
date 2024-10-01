@@ -21,16 +21,21 @@ use Rector\TypePerfect\Enum\Types\ResolvedTypes;
  *
  * @implements Rule<CollectedDataNode>
  */
-final readonly class NarrowPublicClassMethodParamTypeRule implements Rule
+final class NarrowPublicClassMethodParamTypeRule implements Rule
 {
+    /**
+     * @readonly
+     * @var \Rector\TypePerfect\Configuration
+     */
+    private $configuration;
     /**
      * @var string
      */
     public const ERROR_MESSAGE = 'Parameters should have "%s" types as the only types passed to this method';
 
-    public function __construct(
-        private Configuration $configuration
-    ) {
+    public function __construct(Configuration $configuration)
+    {
+        $this->configuration = $configuration;
     }
 
     /**

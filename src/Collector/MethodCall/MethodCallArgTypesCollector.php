@@ -18,13 +18,28 @@ use Rector\TypePerfect\ValueObject\MethodCallReference;
 /**
  * @implements Collector<MethodCall, array<string>|null>
  */
-final readonly class MethodCallArgTypesCollector implements Collector
+final class MethodCallArgTypesCollector implements Collector
 {
-    public function __construct(
-        private ClassMethodCallReferenceResolver $classMethodCallReferenceResolver,
-        private CollectorMetadataPrinter $collectorMetadataPrinter,
-        private Configuration $configuration
-    ) {
+    /**
+     * @readonly
+     * @var \Rector\TypePerfect\Matcher\ClassMethodCallReferenceResolver
+     */
+    private $classMethodCallReferenceResolver;
+    /**
+     * @readonly
+     * @var \Rector\TypePerfect\Printer\CollectorMetadataPrinter
+     */
+    private $collectorMetadataPrinter;
+    /**
+     * @readonly
+     * @var \Rector\TypePerfect\Configuration
+     */
+    private $configuration;
+    public function __construct(ClassMethodCallReferenceResolver $classMethodCallReferenceResolver, CollectorMetadataPrinter $collectorMetadataPrinter, Configuration $configuration)
+    {
+        $this->classMethodCallReferenceResolver = $classMethodCallReferenceResolver;
+        $this->collectorMetadataPrinter = $collectorMetadataPrinter;
+        $this->configuration = $configuration;
     }
 
     public function getNodeType(): string

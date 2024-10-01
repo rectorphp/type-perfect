@@ -15,16 +15,21 @@ use Rector\TypePerfect\Guard\EmptyIssetGuard;
 /**
  * @implements Rule<Empty_>
  */
-final readonly class NoEmptyOnObjectRule implements Rule
+final class NoEmptyOnObjectRule implements Rule
 {
+    /**
+     * @readonly
+     * @var \Rector\TypePerfect\Guard\EmptyIssetGuard
+     */
+    private $emptyIssetGuard;
     /**
      * @var string
      */
     public const ERROR_MESSAGE = 'Use instanceof instead of empty() on object';
 
-    public function __construct(
-        private EmptyIssetGuard $emptyIssetGuard
-    ) {
+    public function __construct(EmptyIssetGuard $emptyIssetGuard)
+    {
+        $this->emptyIssetGuard = $emptyIssetGuard;
     }
 
     public function getNodeType(): string
