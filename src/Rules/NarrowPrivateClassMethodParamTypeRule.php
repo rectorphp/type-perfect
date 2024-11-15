@@ -145,7 +145,6 @@ final readonly class NarrowPrivateClassMethodParamTypeRule implements Rule
             return null;
         }
 
-        // @phpstan-ignore phpstanApi.instanceofType
         if ($argType instanceof IntersectionType) {
             return null;
         }

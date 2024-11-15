@@ -13,7 +13,6 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleError;
 use PHPStan\Rules\RuleErrorBuilder;
-use PHPStan\Type\BooleanType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use Rector\TypePerfect\Configuration;
 
@@ -74,7 +73,6 @@ final readonly class ReturnNullOverFalseRule implements Rule
             }
 
             $exprType = $scope->getType($return->expr);
-            // @phpstan-ignore phpstanApi.instanceofType
             if (! $exprType instanceof ConstantBooleanType) {
                 if ($exprType->isBoolean()->yes()) {
                     return [];

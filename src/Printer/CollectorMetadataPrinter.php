@@ -13,15 +13,12 @@ use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\NullableType;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\UnionType;
+use PhpParser\PrettyPrinter\Standard;
 use PHPStan\Node\Printer\Printer;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ExtendedMethodReflection;
 use PHPStan\Reflection\ParametersAcceptorSelector;
-use PHPStan\Type\ArrayType;
-use PHPStan\Type\BooleanType;
-use PHPStan\Type\ClassStringType;
 use PHPStan\Type\ClosureType;
-use PHPStan\Type\Enum\EnumCaseObjectType;
 use PHPStan\Type\IntegerRangeType;
 use PHPStan\Type\IntersectionType;
 use PHPStan\Type\MixedType;
@@ -35,9 +32,11 @@ use Rector\TypePerfect\Enum\Types\ResolvedTypes;
 
 final readonly class CollectorMetadataPrinter
 {
+    private Standard $printer;
+
     public function __construct(
-        private Printer $printer
     ) {
+        $this->printer = new Standard();
     }
 
     public function printArgTypesAsString(MethodCall $methodCall, ExtendedMethodReflection $extendedMethodReflection, Scope $scope): string
@@ -54,7 +53,6 @@ final readonly class CollectorMetadataPrinter
                 return ResolvedTypes::UNKNOWN_TYPES;
             }
 
-            // @phpstan-ignore phpstanApi.instanceofType
             if ($argType instanceof IntersectionType) {
                 return ResolvedTypes::UNKNOWN_TYPES;
             }

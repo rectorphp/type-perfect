@@ -55,7 +55,6 @@ final readonly class NoParamTypeRemovalRule implements Rule
         }
 
         $parentClassMethodReflection = $this->methodNodeAnalyser->matchFirstParentClassMethod($scope, $classMethodName);
-        // @phpstan-ignore phpstanApi.instanceofAssumption
         if (! $parentClassMethodReflection instanceof PhpMethodReflection) {
             return [];
         }

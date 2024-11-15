@@ -43,7 +43,6 @@ final class NoArrayAccessOnObjectRule implements Rule
     public function processNode(Node $node, Scope $scope): array
     {
         $varType = $scope->getType($node->var);
-        // @phpstan-ignore phpstanApi.instanceofType
         if (! $varType instanceof ObjectType) {
             return [];
         }
