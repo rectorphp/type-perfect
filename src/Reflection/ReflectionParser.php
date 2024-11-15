@@ -11,6 +11,7 @@ use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\NameResolver;
 use PhpParser\Parser;
 use PhpParser\ParserFactory;
+use PhpParser\PhpVersion;
 use PHPStan\Reflection\ClassReflection;
 use Throwable;
 
@@ -26,7 +27,7 @@ final class ReflectionParser
     public function __construct()
     {
         $parserFactory = new ParserFactory();
-        $this->parser = $parserFactory->create(ParserFactory::PREFER_PHP7);
+        $this->parser = $parserFactory->createForVersion(PhpVersion::fromString('7.4'));
     }
 
     public function parseClassReflection(ClassReflection $classReflection): ?ClassLike

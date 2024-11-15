@@ -110,10 +110,6 @@ final readonly class NarrowPrivateClassMethodParamTypeRule implements Rule
                 continue;
             }
 
-            if (! $arg instanceof Arg) {
-                continue;
-            }
-
             $paramRuleError = $this->validateParam($param, $position, $arg->value, $scope);
             if (! $paramRuleError instanceof RuleError) {
                 continue;
@@ -149,6 +145,7 @@ final readonly class NarrowPrivateClassMethodParamTypeRule implements Rule
             return null;
         }
 
+        // @phpstan-ignore phpstanApi.instanceofType
         if ($argType instanceof IntersectionType) {
             return null;
         }

@@ -6,7 +6,7 @@ namespace Rector\TypePerfect\Rules;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\PropertyFetch;
-use PhpParser\PrettyPrinter\Standard;
+use PHPStan\Node\Printer\Printer;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleError;
@@ -26,7 +26,7 @@ final readonly class NoMixedPropertyFetcherRule implements Rule
     public const ERROR_MESSAGE = 'Mixed property fetch in a "%s->..." can skip important errors. Make sure the type is known';
 
     public function __construct(
-        private Standard $standard,
+        private Printer $printer,
         private Configuration $configuration,
     ) {
     }
@@ -54,7 +54,7 @@ final readonly class NoMixedPropertyFetcherRule implements Rule
             return [];
         }
 
-        $printedVar = $this->standard->prettyPrintExpr($node->var);
+        $printedVar = $this->printer->prettyPrintExpr($node->var);
 
         return [
             RuleErrorBuilder::message(sprintf(self::ERROR_MESSAGE, $printedVar))

@@ -6,7 +6,7 @@ namespace Rector\TypePerfect\Rules;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
-use PhpParser\PrettyPrinter\Standard;
+use PHPStan\Node\Printer\Printer;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleError;
@@ -27,7 +27,7 @@ final readonly class NoMixedMethodCallerRule implements Rule
     public const ERROR_MESSAGE = 'Mixed variable in a `%s->...()` can skip important errors. Make sure the type is known';
 
     public function __construct(
-        private Standard $printerStandard,
+        private Printer $printer,
         private Configuration $configuration,
     ) {
     }
@@ -65,7 +65,7 @@ final readonly class NoMixedMethodCallerRule implements Rule
             return [];
         }
 
-        $printedMethodCall = $this->printerStandard->prettyPrintExpr($node->var);
+        $printedMethodCall = $this->printer->prettyPrintExpr($node->var);
 
         return [
             RuleErrorBuilder::message(sprintf(self::ERROR_MESSAGE, $printedMethodCall))

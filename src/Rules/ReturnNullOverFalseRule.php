@@ -74,8 +74,9 @@ final readonly class ReturnNullOverFalseRule implements Rule
             }
 
             $exprType = $scope->getType($return->expr);
+            // @phpstan-ignore phpstanApi.instanceofType
             if (! $exprType instanceof ConstantBooleanType) {
-                if ($exprType instanceof BooleanType) {
+                if ($exprType->isBoolean()->yes()) {
                     return [];
                 }
 

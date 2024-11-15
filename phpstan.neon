@@ -19,4 +19,3 @@ parameters:
 
         # overly detailed generics
         - '#Rector\\TypePerfect\\Tests\\Rules\\(.*?) generic (class|interface)#'
-        - '#Method Rector\\TypePerfect\\Tests\\Rules\\(.*?)testRule\(\) has parameter \$expectedErrorsWithLines with no value type specified in iterable type array#'
