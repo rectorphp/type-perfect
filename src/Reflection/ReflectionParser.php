@@ -26,7 +26,7 @@ final class ReflectionParser
     public function __construct()
     {
         $parserFactory = new ParserFactory();
-        $this->parser = $parserFactory->create(ParserFactory::PREFER_PHP7);
+        $this->parser = $parserFactory->createForNewestSupportedVersion();
     }
 
     public function parseClassReflection(ClassReflection $classReflection): ?ClassLike
@@ -79,12 +79,6 @@ final class ReflectionParser
     private function findFirstClassLike(array $nodes): ?ClassLike
     {
         $nodeFinder = new NodeFinder();
-
-        $foundClassLike = $nodeFinder->findFirstInstanceOf($nodes, ClassLike::class);
-        if ($foundClassLike instanceof ClassLike) {
-            return $foundClassLike;
-        }
-
-        return null;
+        return $nodeFinder->findFirstInstanceOf($nodes, ClassLike::class);
     }
 }

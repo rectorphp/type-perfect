@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Rector\TypePerfect\Printer;
 
 use PhpParser\Node;
-use PhpParser\PrettyPrinter\Standard;
+use PHPStan\Node\Printer\Printer;
 
 final readonly class NodeComparator
 {
     public function __construct(
-        private Standard $standard
+        private Printer $printer
     ) {
     }
 
@@ -20,6 +20,6 @@ final readonly class NodeComparator
         $firstNode->setAttribute('comments', null);
         $secondNode->setAttribute('comments', null);
 
-        return $this->standard->prettyPrint([$firstNode]) === $this->standard->prettyPrint([$secondNode]);
+        return $this->printer->prettyPrint([$firstNode]) === $this->printer->prettyPrint([$secondNode]);
     }
 }

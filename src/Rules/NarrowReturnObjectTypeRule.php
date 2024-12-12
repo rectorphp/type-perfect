@@ -15,7 +15,6 @@ use PHPStan\Rules\RuleError;
 use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
-use PHPStan\Type\TypeWithClassName;
 use Rector\TypePerfect\Configuration;
 use Rector\TypePerfect\NodeFinder\ReturnNodeFinder;
 use Rector\TypePerfect\Reflection\MethodNodeAnalyser;
@@ -94,8 +93,11 @@ final readonly class NarrowReturnObjectTypeRule implements Rule
             return [];
         }
 
-        /** @var TypeWithClassName $returnExprType */
-        $errorMessage = sprintf(self::ERROR_MESSAGE, $returnExprType->getClassName());
+        if (count($returnExprType->getObjectClassNames()) !== 1) {
+            return [];
+        }
+
+        $errorMessage = sprintf(self::ERROR_MESSAGE, $returnExprType->getObjectClassNames()[0]);
 
         return [
             RuleErrorBuilder::message($errorMessage)
@@ -127,15 +129,14 @@ final readonly class NarrowReturnObjectTypeRule implements Rule
 
     private function shouldSkipReturnExprType(Type $type): bool
     {
-        if (! $type instanceof TypeWithClassName) {
+        if (count($type->getObjectClassNames()) !== 1) {
             return true;
         }
 
-        $classReflection = $type->getClassReflection();
-        if (! $classReflection instanceof ClassReflection) {
+        if (count($type->getObjectClassReflections()) !== 1) {
             return true;
         }
 
-        return $classReflection->isAnonymous();
+        return $type->getObjectClassReflections()[0]->isAnonymous();
     }
 }

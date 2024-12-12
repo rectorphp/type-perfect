@@ -17,11 +17,7 @@ use PhpParser\PrettyPrinter\Standard;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ExtendedMethodReflection;
 use PHPStan\Reflection\ParametersAcceptorSelector;
-use PHPStan\Type\ArrayType;
-use PHPStan\Type\BooleanType;
-use PHPStan\Type\ClassStringType;
 use PHPStan\Type\ClosureType;
-use PHPStan\Type\Enum\EnumCaseObjectType;
 use PHPStan\Type\IntegerRangeType;
 use PHPStan\Type\IntersectionType;
 use PHPStan\Type\MixedType;
@@ -35,11 +31,11 @@ use Rector\TypePerfect\Enum\Types\ResolvedTypes;
 
 final readonly class CollectorMetadataPrinter
 {
-    private Standard $printerStandard;
+    private Standard $standard;
 
-    public function __construct()
-    {
-        $this->printerStandard = new Standard();
+    public function __construct(
+    ) {
+        $this->standard = new Standard();
     }
 
     public function printArgTypesAsString(MethodCall $methodCall, ExtendedMethodReflection $extendedMethodReflection, Scope $scope): string
@@ -100,7 +96,7 @@ final readonly class CollectorMetadataPrinter
                 $paramType = $this->resolveSortedTypes($paramType, $className);
             }
 
-            $printedParamType = $this->printerStandard->prettyPrint([$paramType]);
+            $printedParamType = $this->standard->prettyPrint([$paramType]);
             $printedParamType = str_replace('\Closure', 'callable', $printedParamType);
             $printedParamType = ltrim($printedParamType, '\\');
             $printedParamType = str_replace('|\\', '|', $printedParamType);
@@ -160,15 +156,15 @@ final readonly class CollectorMetadataPrinter
 
     private function printTypeToString(Type $type): string
     {
-        if ($type instanceof ClassStringType) {
+        if ($type->isClassString()->yes()) {
             return 'string';
         }
 
-        if ($type instanceof ArrayType) {
+        if ($type->isArray()->yes()) {
             return 'array';
         }
 
-        if ($type instanceof BooleanType) {
+        if ($type->isBoolean()->yes()) {
             return 'bool';
         }
 
@@ -180,8 +176,8 @@ final readonly class CollectorMetadataPrinter
             return 'callable';
         }
 
-        if ($type instanceof EnumCaseObjectType) {
-            return $type->getClassName();
+        if (count($type->getEnumCases()) === 1) {
+            return $type->getEnumCases()[0]->getClassName();
         }
 
         return $type->describe(VerbosityLevel::typeOnly());

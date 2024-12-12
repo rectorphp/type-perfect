@@ -110,10 +110,6 @@ final readonly class NarrowPrivateClassMethodParamTypeRule implements Rule
                 continue;
             }
 
-            if (! $arg instanceof Arg) {
-                continue;
-            }
-
             $paramRuleError = $this->validateParam($param, $position, $arg->value, $scope);
             if (! $paramRuleError instanceof RuleError) {
                 continue;

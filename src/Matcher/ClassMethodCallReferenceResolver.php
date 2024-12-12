@@ -10,7 +10,6 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Node\MethodCallableNode;
 use PHPStan\Type\ThisType;
 use PHPStan\Type\TypeCombinator;
-use PHPStan\Type\TypeWithClassName;
 use Rector\TypePerfect\ValueObject\MethodCallReference;
 
 final class ClassMethodCallReferenceResolver
@@ -40,12 +39,12 @@ final class ClassMethodCallReferenceResolver
             return null;
         }
 
-        if (! $callerType instanceof TypeWithClassName) {
+        if (count($callerType->getObjectClassNames()) !== 1) {
             return null;
         }
 
         // move to the class where method is defined, e.g. parent class defines the method, so it should be checked there
-        $className = $callerType->getClassName();
+        $className = $callerType->getObjectClassNames()[0];
         $methodNameString = $methodName->toString();
 
         return new MethodCallReference($className, $methodNameString);

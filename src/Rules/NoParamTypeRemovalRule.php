@@ -82,8 +82,8 @@ final readonly class NoParamTypeRemovalRule implements Rule
 
     private function resolveParentParamType(PhpMethodReflection $phpMethodReflection, int $paramPosition): Type
     {
-        foreach ($phpMethodReflection->getVariants() as $parametersAcceptorWithPhpDoc) {
-            foreach ($parametersAcceptorWithPhpDoc->getParameters() as $parentParamPosition => $parameterReflectionWithPhpDoc) {
+        foreach ($phpMethodReflection->getVariants() as $variant) {
+            foreach ($variant->getParameters() as $parentParamPosition => $parameterReflectionWithPhpDoc) {
                 if ($paramPosition !== $parentParamPosition) {
                     continue;
                 }

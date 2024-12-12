@@ -16,7 +16,7 @@ use Rector\TypePerfect\Rules\NarrowPrivateClassMethodParamTypeRule;
 final class NarrowPrivateClassMethodParamTypeRuleTest extends RuleTestCase
 {
     /**
-     * @param mixed[] $expectedErrorsWithLines
+     * @param list<array{0: string, 1: int, 2?: string|null}> $expectedErrorsWithLines
      */
     #[DataProvider('provideData')]
     public function testRule(string $filePath, array $expectedErrorsWithLines): void
