@@ -14,7 +14,6 @@ use PhpParser\Node\NullableType;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\UnionType;
 use PhpParser\PrettyPrinter\Standard;
-use PHPStan\Node\Printer\Printer;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ExtendedMethodReflection;
 use PHPStan\Reflection\ParametersAcceptorSelector;
@@ -32,11 +31,11 @@ use Rector\TypePerfect\Enum\Types\ResolvedTypes;
 
 final readonly class CollectorMetadataPrinter
 {
-    private Standard $printer;
+    private Standard $standard;
 
     public function __construct(
     ) {
-        $this->printer = new Standard();
+        $this->standard = new Standard();
     }
 
     public function printArgTypesAsString(MethodCall $methodCall, ExtendedMethodReflection $extendedMethodReflection, Scope $scope): string
@@ -97,7 +96,7 @@ final readonly class CollectorMetadataPrinter
                 $paramType = $this->resolveSortedTypes($paramType, $className);
             }
 
-            $printedParamType = $this->printer->prettyPrint([$paramType]);
+            $printedParamType = $this->standard->prettyPrint([$paramType]);
             $printedParamType = str_replace('\Closure', 'callable', $printedParamType);
             $printedParamType = ltrim($printedParamType, '\\');
             $printedParamType = str_replace('|\\', '|', $printedParamType);

@@ -10,7 +10,6 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Node\MethodCallableNode;
 use PHPStan\Type\ThisType;
 use PHPStan\Type\TypeCombinator;
-use PHPStan\Type\TypeWithClassName;
 use Rector\TypePerfect\ValueObject\MethodCallReference;
 
 final class ClassMethodCallReferenceResolver

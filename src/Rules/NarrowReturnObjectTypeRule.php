@@ -15,7 +15,6 @@ use PHPStan\Rules\RuleError;
 use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
-use PHPStan\Type\TypeWithClassName;
 use Rector\TypePerfect\Configuration;
 use Rector\TypePerfect\NodeFinder\ReturnNodeFinder;
 use Rector\TypePerfect\Reflection\MethodNodeAnalyser;
