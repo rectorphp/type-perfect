@@ -33,7 +33,7 @@ jobs:
             -   run: composer require rector/rector:^1.1 --working-dir rector-local --ansi
 
             # downgrade to PHP 7.4
-            -   run: rector-local/vendor/bin/rector process src --config build/rector-downgrade-php-72.php --ansi
+            -   run: rector-local/vendor/bin/rector process src --config build/rector-downgrade-php-74.php --ansi
 
             # clear the dev files
             -   run: rm -rf tests rector-local ecs.php phpstan.neon phpunit.xml .editorconfig

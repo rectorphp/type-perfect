@@ -12,4 +12,4 @@ rm -rf tests
 # downgrade with rector
 mkdir rector-local
 composer require rector/rector --working-dir rector-local
-rector-local/vendor/bin/rector process src --config build/rector-downgrade-php-72.php --ansi
+rector-local/vendor/bin/rector process src --config build/rector-downgrade-php-74.php --ansi
