@@ -42,7 +42,7 @@ jobs:
             -   run: cp -r build/target-repository/. .
 
             # clear the dev files
-            -   run: rm -rf build full-tool-build.sh rector.php tests
+            -   run: rm -rf build full-tool-build.sh rector.php phpstan-for-tests.neon tests
 
             # setup git user
             -
