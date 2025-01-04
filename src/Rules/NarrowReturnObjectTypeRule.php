@@ -24,18 +24,30 @@ use Rector\TypePerfect\Reflection\MethodNodeAnalyser;
  *
  * @implements Rule<ClassMethod>
  */
-final readonly class NarrowReturnObjectTypeRule implements Rule
+final class NarrowReturnObjectTypeRule implements Rule
 {
+    /**
+     * @readonly
+     */
+    private ReturnNodeFinder $returnNodeFinder;
+    /**
+     * @readonly
+     */
+    private MethodNodeAnalyser $methodNodeAnalyser;
+    /**
+     * @readonly
+     */
+    private Configuration $configuration;
     /**
      * @var string
      */
     public const ERROR_MESSAGE = 'Provide more specific return type "%s" over abstract one';
 
-    public function __construct(
-        private ReturnNodeFinder $returnNodeFinder,
-        private MethodNodeAnalyser $methodNodeAnalyser,
-        private Configuration $configuration
-    ) {
+    public function __construct(ReturnNodeFinder $returnNodeFinder, MethodNodeAnalyser $methodNodeAnalyser, Configuration $configuration)
+    {
+        $this->returnNodeFinder = $returnNodeFinder;
+        $this->methodNodeAnalyser = $methodNodeAnalyser;
+        $this->configuration = $configuration;
     }
 
     /**
