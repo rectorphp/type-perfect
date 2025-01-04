@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Rector\TypePerfect\Tests\Rules\ReturnNullOverFalseRule\Fixture;
+namespace Rector\TypePerfect\Tests\Rules\NarrowPublicClassMethodParamTypeRule\Fixture;
 
 final class SkipCallable
 {
