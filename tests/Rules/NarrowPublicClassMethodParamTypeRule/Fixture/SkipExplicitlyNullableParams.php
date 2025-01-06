@@ -8,6 +8,7 @@ final class SkipExplicitlyNullableParams
 {
     public function test(
         ?bool $bool = true,
+        array $array = [],
     ): bool
     {
         return $bool;
