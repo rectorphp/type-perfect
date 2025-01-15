@@ -7,7 +7,7 @@ namespace Rector\TypePerfect\Tests\Rules\NarrowPublicClassMethodParamTypeRule\Fi
 final class SkipDefault
 {
     public function dontSetParamValue(
-        string $Id
+        string $Id = ''
     ): bool
     {
         return true;
