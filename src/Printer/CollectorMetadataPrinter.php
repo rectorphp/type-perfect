@@ -15,8 +15,10 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\UnionType;
 use PhpParser\PrettyPrinter\Standard;
 use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\ExtendedMethodReflection;
 use PHPStan\Reflection\ParametersAcceptorSelector;
+use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\ClosureType;
 use PHPStan\Type\IntegerRangeType;
 use PHPStan\Type\IntersectionType;
@@ -80,29 +82,51 @@ final readonly class CollectorMetadataPrinter
         return implode('|', $stringArgTypes);
     }
 
-    public function printParamTypesToString(ClassMethod $classMethod, ?string $className): string
+    public function printParamTypesToString(ClassMethod $classMethod, ?string $className, ClassReflection $classReflection, Scope $scope): string
     {
+        $parametersReflection = [];
+        if ($classReflection->hasMethod($classMethod->name->name)) {
+            $methodReflection = $classReflection->getMethod($classMethod->name->name, $scope);
+            $variants = $methodReflection->getVariants();
+            if (count($variants) === 1) {
+                $parametersReflection = $variants[0]->getParameters();
+            }
+        }
+
         $printedParamTypes = [];
-        foreach ($classMethod->params as $param) {
+        foreach ($classMethod->params as $i => $param) {
             if ($param->type === null) {
                 $printedParamTypes[] = '';
                 continue;
             }
 
-            $paramType = $this->transformSelfToClassName($param->type, $className);
-            if ($paramType instanceof NullableType) {
-                // unite to phpstan type
-                $paramType = new UnionType([$paramType->type, new Identifier('null')]);
+            $phpdocType = null;
+            if (array_key_exists($i, $parametersReflection)) {
+                $paramphpdocType = $parametersReflection[$i]->getPhpDocType();
+                if (!$paramphpdocType instanceof MixedType) {
+                    $phpdocType = $paramphpdocType;
+                }
             }
 
-            if ($paramType instanceof UnionType || $paramType instanceof NodeIntersectionType) {
-                $paramType = $this->resolveSortedTypes($paramType, $className);
-            }
+            if ($phpdocType) {
+                $printedParamType = $this->printTypeToString($phpdocType);
+            } else {
+                $paramType = $this->transformSelfToClassName($param->type, $className);
 
-            $printedParamType = $this->standard->prettyPrint([$paramType]);
-            $printedParamType = str_replace('\Closure', 'callable', $printedParamType);
-            $printedParamType = ltrim($printedParamType, '\\');
-            $printedParamType = str_replace('|\\', '|', $printedParamType);
+                if ($paramType instanceof NullableType) {
+                    // unite to phpstan type
+                    $paramType = new UnionType([$paramType->type, new Identifier('null')]);
+                }
+
+                if ($paramType instanceof UnionType || $paramType instanceof NodeIntersectionType) {
+                    $paramType = $this->resolveSortedTypes($paramType, $className);
+                }
+
+                $printedParamType = $this->standard->prettyPrint([$paramType]);
+                $printedParamType = str_replace('\Closure', 'callable', $printedParamType);
+                $printedParamType = ltrim($printedParamType, '\\');
+                $printedParamType = str_replace('|\\', '|', $printedParamType);
+            }
 
             // to avoid DateTime vs DateTimeImmutable vs DateTimeInterface conflicts
             $printedParamType = $this->normalizeDateTime($printedParamType);
