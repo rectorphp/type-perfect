@@ -23,7 +23,7 @@ final class PublicClassMethodMatcher
         }
 
         foreach (self::SKIPPED_TYPES as $skippedType) {
-            if ($classReflection->isSubclassOf($skippedType)) {
+            if ($classReflection->is($skippedType)) {
                 return true;
             }
         }
