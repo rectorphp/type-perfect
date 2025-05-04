@@ -18,7 +18,6 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\ExtendedMethodReflection;
 use PHPStan\Reflection\ParametersAcceptorSelector;
-use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\ClosureType;
 use PHPStan\Type\IntegerRangeType;
 use PHPStan\Type\IntersectionType;
@@ -40,9 +39,17 @@ final readonly class CollectorMetadataPrinter
         $this->standard = new Standard();
     }
 
-    public function printArgTypesAsString(MethodCall $methodCall, ExtendedMethodReflection $extendedMethodReflection, Scope $scope): string
-    {
-        $parametersAcceptor = ParametersAcceptorSelector::selectFromArgs($scope, $methodCall->getArgs(), $extendedMethodReflection->getVariants(), $extendedMethodReflection->getNamedArgumentsVariants());
+    public function printArgTypesAsString(
+        MethodCall $methodCall,
+        ExtendedMethodReflection $extendedMethodReflection,
+        Scope $scope
+    ): string {
+        $parametersAcceptor = ParametersAcceptorSelector::selectFromArgs(
+            $scope,
+            $methodCall->getArgs(),
+            $extendedMethodReflection->getVariants(),
+            $extendedMethodReflection->getNamedArgumentsVariants()
+        );
         $parameters = $parametersAcceptor->getParameters();
 
         $stringArgTypes = [];
@@ -82,8 +89,12 @@ final readonly class CollectorMetadataPrinter
         return implode('|', $stringArgTypes);
     }
 
-    public function printParamTypesToString(ClassMethod $classMethod, ?string $className, ClassReflection $classReflection, Scope $scope): string
-    {
+    public function printParamTypesToString(
+        ClassMethod $classMethod,
+        ?string $className,
+        ClassReflection $classReflection,
+        Scope $scope
+    ): string {
         $parametersReflection = [];
         if ($classReflection->hasMethod($classMethod->name->name)) {
             $methodReflection = $classReflection->getMethod($classMethod->name->name, $scope);
@@ -103,7 +114,7 @@ final readonly class CollectorMetadataPrinter
             $phpdocType = null;
             if (array_key_exists($i, $parametersReflection)) {
                 $paramphpdocType = $parametersReflection[$i]->getPhpDocType();
-                if (!$paramphpdocType instanceof MixedType) {
+                if (! $paramphpdocType instanceof MixedType) {
                     $phpdocType = $paramphpdocType;
                 }
             }
@@ -150,8 +161,10 @@ final readonly class CollectorMetadataPrinter
         return new FullyQualified($className);
     }
 
-    private function resolveSortedTypes(UnionType|NodeIntersectionType $paramType, ?string $className): UnionType|NodeIntersectionType
-    {
+    private function resolveSortedTypes(
+        UnionType|NodeIntersectionType $paramType,
+        ?string $className
+    ): UnionType|NodeIntersectionType {
         $typeNames = [];
 
         foreach ($paramType->types as $type) {
@@ -207,7 +220,8 @@ final readonly class CollectorMetadataPrinter
         }
 
         if (count($type->getEnumCases()) === 1) {
-            return $type->getEnumCases()[0]->getClassName();
+            return $type->getEnumCases()[0]
+                ->getClassName();
         }
 
         return $type->describe(VerbosityLevel::typeOnly());

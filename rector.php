@@ -16,13 +16,6 @@ return RectorConfig::configure()
         naming: true,
         earlyReturn: true
     )
-    ->withPaths([
-        __DIR__ . '/config',
-        __DIR__ . '/src',
-        __DIR__ . '/tests',
-    ])
+    ->withPaths([__DIR__ . '/config', __DIR__ . '/src', __DIR__ . '/tests'])
     ->withImportNames(removeUnusedImports: true)
-    ->withSkip([
-        '*/Source/*',
-        '*/Fixture/*',
-    ]);
+    ->withSkip(['*/Source/*', '*/Fixture/*']);
