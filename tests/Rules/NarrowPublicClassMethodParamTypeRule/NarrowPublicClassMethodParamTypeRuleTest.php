@@ -26,6 +26,9 @@ final class NarrowPublicClassMethodParamTypeRuleTest extends RuleTestCase
 
     public static function provideData(): Iterator
     {
+        yield [[__DIR__ . '/Fixture/Generics/SkipPassedGenerics.php'], []];
+
+        yield [[__DIR__ . '/Fixture/SkipDefault.php'], []];
         yield [[__DIR__ . '/Fixture/SkipResource.php'], []];
         yield [[__DIR__ . '/Fixture/SkipDateTimeMix.php'], []];
         yield [[__DIR__ . '/Fixture/SkipNonPublicClassMethod.php'], []];
@@ -143,30 +146,25 @@ final class NarrowPublicClassMethodParamTypeRuleTest extends RuleTestCase
             __DIR__ . '/Source/ExpectedThisType/CallByThisFromInterface.php',
         ], [[$argErrorMessage, 11]]];
 
-        yield [[
-            __DIR__ . '/Fixture/SkipSelf.php',
-        ], []];
+        yield [[__DIR__ . '/Fixture/SkipSelf.php'], []];
 
-        yield [[
-            __DIR__ . '/Fixture/SkipClosure.php',
-        ], []];
+        yield [[__DIR__ . '/Fixture/SkipClosure.php'], []];
 
-        yield [[
-            __DIR__ . '/Fixture/SkipCallable.php',
-        ], []];
+        yield [[__DIR__ . '/Fixture/SkipCallable.php'], []];
 
-        yield [[
-            __DIR__ . '/Fixture/SkipEnum.php',
-        ], []];
+        yield [[__DIR__ . '/Fixture/SkipEnum.php'], []];
 
         $argErrorMessage = sprintf(NarrowPublicClassMethodParamTypeRule::ERROR_MESSAGE, 'int');
-        yield [[
+
+      yield [[
             __DIR__ . '/Fixture/HandleDefaultValue.php',
         ], [[$argErrorMessage, 15]]];
 
         yield [[
             __DIR__ . '/Fixture/SkipExplicitlyNullableParams.php',
         ], []];
+
+      yield [[__DIR__ . '/Fixture/HandleDefaultValue.php'], [[$argErrorMessage, 15]]];
     }
 
     /**

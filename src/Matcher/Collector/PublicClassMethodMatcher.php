@@ -13,7 +13,10 @@ final class PublicClassMethodMatcher
     /**
      * @var string[]
      */
-    private const SKIPPED_TYPES = ['PHPUnit\Framework\TestCase', 'Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator'];
+    private const SKIPPED_TYPES = [
+        'PHPUnit\Framework\TestCase',
+        'Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator',
+    ];
 
     public function shouldSkipClassReflection(ClassReflection $classReflection): bool
     {
@@ -23,7 +26,7 @@ final class PublicClassMethodMatcher
         }
 
         foreach (self::SKIPPED_TYPES as $skippedType) {
-            if ($classReflection->isSubclassOf($skippedType)) {
+            if ($classReflection->is($skippedType)) {
                 return true;
             }
         }

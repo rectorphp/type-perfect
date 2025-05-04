@@ -43,10 +43,7 @@ final class NoParamTypeRemovalRuleTest extends RuleTestCase
         ];
         yield [
             __DIR__ . '/Fixture/HasDifferentParameterWithInterfaceMethod.php',
-            [[NoParamTypeRemovalRule::ERROR_MESSAGE, 9], [
-                NoParamTypeRemovalRule::ERROR_MESSAGE,
-                13,
-            ]],
+            [[NoParamTypeRemovalRule::ERROR_MESSAGE, 9], [NoParamTypeRemovalRule::ERROR_MESSAGE, 13]],
         ];
     }
 

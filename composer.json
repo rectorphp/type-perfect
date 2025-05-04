@@ -5,14 +5,13 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
-        "phpstan/phpstan": "^2.0",
+        "phpstan/phpstan": "^2.1.14",
         "webmozart/assert": "^1.11"
     },
     "require-dev": {
-        "nikic/php-parser": "^5.0",
+        "nikic/php-parser": "^5.4",
         "symplify/phpstan-extensions": "^12.0",
-        "symplify/rule-doc-generator": "^12.1",
-        "phpunit/phpunit": "^10.5",
+        "phpunit/phpunit": "^11.5",
         "rector/rector": "^2.0",
         "symplify/easy-coding-standard": "^12.1",
         "phpstan/extension-installer": "^1.3",
