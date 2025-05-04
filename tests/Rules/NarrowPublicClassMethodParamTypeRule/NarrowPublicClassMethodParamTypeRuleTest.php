@@ -146,26 +146,16 @@ final class NarrowPublicClassMethodParamTypeRuleTest extends RuleTestCase
             __DIR__ . '/Source/ExpectedThisType/CallByThisFromInterface.php',
         ], [[$argErrorMessage, 11]]];
 
-        yield [[
-            __DIR__ . '/Fixture/SkipSelf.php',
-        ], []];
+        yield [[__DIR__ . '/Fixture/SkipSelf.php'], []];
 
-        yield [[
-            __DIR__ . '/Fixture/SkipClosure.php',
-        ], []];
+        yield [[__DIR__ . '/Fixture/SkipClosure.php'], []];
 
-        yield [[
-            __DIR__ . '/Fixture/SkipCallable.php',
-        ], []];
+        yield [[__DIR__ . '/Fixture/SkipCallable.php'], []];
 
-        yield [[
-            __DIR__ . '/Fixture/SkipEnum.php',
-        ], []];
+        yield [[__DIR__ . '/Fixture/SkipEnum.php'], []];
 
         $argErrorMessage = sprintf(NarrowPublicClassMethodParamTypeRule::ERROR_MESSAGE, 'int');
-        yield [[
-            __DIR__ . '/Fixture/HandleDefaultValue.php',
-        ], [[$argErrorMessage, 15]]];
+        yield [[__DIR__ . '/Fixture/HandleDefaultValue.php'], [[$argErrorMessage, 15]]];
     }
 
     /**

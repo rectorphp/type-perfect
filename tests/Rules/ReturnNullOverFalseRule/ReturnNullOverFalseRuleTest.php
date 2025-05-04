@@ -23,10 +23,7 @@ final class ReturnNullOverFalseRuleTest extends RuleTestCase
 
     public static function provideData(): Iterator
     {
-        yield [
-            __DIR__ . '/Fixture/ReturnFalseOnly.php',
-            [[ReturnNullOverFalseRule::ERROR_MESSAGE, 9]],
-        ];
+        yield [__DIR__ . '/Fixture/ReturnFalseOnly.php', [[ReturnNullOverFalseRule::ERROR_MESSAGE, 9]]];
         yield [__DIR__ . '/Fixture/CheckResultFromOtherMethod.php', []];
         yield [__DIR__ . '/Fixture/CheckResultFromOtherMethod2.php', []];
 

@@ -14,8 +14,11 @@ use Rector\TypePerfect\ValueObject\MethodCallReference;
 
 final class ClassMethodCallReferenceResolver
 {
-    public function resolve(MethodCall|MethodCallableNode $methodCallOrMethodCallable, Scope $scope, bool $allowThisType): ?MethodCallReference
-    {
+    public function resolve(
+        MethodCall|MethodCallableNode $methodCallOrMethodCallable,
+        Scope $scope,
+        bool $allowThisType
+    ): ?MethodCallReference {
         if ($methodCallOrMethodCallable instanceof MethodCallableNode) {
             $methodName = $methodCallOrMethodCallable->getName();
             $variable = $methodCallOrMethodCallable->getVar();
