@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Rector\TypePerfect\Tests\Rules\NarrowPublicClassMethodParamTypeRule\Fixture;
 
-final class SkipExplicitlyNullableParams
+final class ExplicitlyNullableParams
 {
     public function test(
         ?bool $bool = true,
-        array $array = [],
     ): bool
     {
         return $bool;
@@ -16,7 +15,7 @@ final class SkipExplicitlyNullableParams
 
     static public function run(): void
     {
-        $skipDateTimeMix = new SkipExplicitlyNullableParams();
+        $skipDateTimeMix = new ExplicitlyNullableParams();
         $skipDateTimeMix->test(false);
     }
 }
