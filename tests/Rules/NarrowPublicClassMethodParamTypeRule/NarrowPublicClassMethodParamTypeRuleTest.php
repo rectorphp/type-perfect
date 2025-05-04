@@ -26,6 +26,8 @@ final class NarrowPublicClassMethodParamTypeRuleTest extends RuleTestCase
 
     public static function provideData(): Iterator
     {
+        yield [[__DIR__ . '/Fixture/Generics/SimpleGenericsFile.php'], []];
+
         yield [[__DIR__ . '/Fixture/SkipResource.php'], []];
         yield [[__DIR__ . '/Fixture/SkipDateTimeMix.php'], []];
         yield [[__DIR__ . '/Fixture/SkipNonPublicClassMethod.php'], []];

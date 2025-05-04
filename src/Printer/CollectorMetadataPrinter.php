@@ -119,7 +119,7 @@ final readonly class CollectorMetadataPrinter
                 }
             }
 
-            if ($phpdocType) {
+            if ($phpdocType instanceof Type) {
                 $printedParamType = $this->printTypeToString($phpdocType);
             } else {
                 $paramType = $this->transformSelfToClassName($param->type, $className);
