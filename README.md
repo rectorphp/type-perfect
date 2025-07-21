@@ -24,7 +24,7 @@ composer require rector/type-perfect --dev
 
 <br>
 
-There are 2 checks enabled out of the box. First one makes sure we don't miss a chance to use `instanceof` to make further code know about exact object type:
+There are 3 checks enabled out of the box. First one makes sure we don't miss a chance to use `instanceof` to make further code know about exact object type:
 
 ```php
 private ?SomeType $someType = null;
@@ -73,6 +73,35 @@ $id = $article['id'];
 ```php
 $id = $article->getId();
 // we know the type is int
+```
+
+:heavy_check_mark:
+
+<br>
+
+Last rule checks that all interface implementations follow the same method signature as the interface:
+
+```php
+interface SomeInterface
+{
+    public function doSomething(int $value): void;
+}
+
+final class SomeClass implements SomeInterface
+{
+     public function doSomething($value): void { // ... }
+}
+```
+
+:no_good:
+
+↓
+
+```php
+final class SomeClass implements SomeInterface
+{
+     public function doSomething(int $value): void { // ... }
+}
 ```
 
 :heavy_check_mark:
