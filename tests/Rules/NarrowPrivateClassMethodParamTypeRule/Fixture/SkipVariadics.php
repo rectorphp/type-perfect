@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Rector\TypePerfect\Tests\Rules\NarrowPrivateClassMethodParamTypeRule\Fixture;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr\MethodCall;
 
 class SkipVariadics
 {
