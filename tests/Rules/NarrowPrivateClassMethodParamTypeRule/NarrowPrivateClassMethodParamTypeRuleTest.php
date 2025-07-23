@@ -50,6 +50,7 @@ final class NarrowPrivateClassMethodParamTypeRuleTest extends RuleTestCase
         yield [__DIR__ . '/Fixture/DoubleShot.php', [[$argErrorMessage, 15], [$paramErrorMessage, 15]]];
         yield [__DIR__ . '/Fixture/SkipGenericType.php', []];
         yield [__DIR__ . '/Fixture/SkipAbstractBase.php', []];
+        yield [__DIR__ . '/Fixture/SkipVariadics.php', []];
     }
 
     /**
