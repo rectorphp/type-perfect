@@ -18,7 +18,6 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\ExtendedMethodReflection;
 use PHPStan\Reflection\ParametersAcceptorSelector;
-use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\ClosureType;
 use PHPStan\Type\IntegerRangeType;
 use PHPStan\Type\IntersectionType;
@@ -90,8 +89,11 @@ final readonly class CollectorMetadataPrinter
         return implode('|', $stringArgTypes);
     }
 
-    public function printParamTypesToString(ClassMethod $classMethod, ClassReflection $classReflection, Scope $scope): string
-    {
+    public function printParamTypesToString(
+        ClassMethod $classMethod,
+        ClassReflection $classReflection,
+        Scope $scope
+    ): string {
         $className = $classReflection->getName();
 
         $parametersReflection = [];
@@ -113,7 +115,7 @@ final readonly class CollectorMetadataPrinter
             $phpdocType = null;
             if (array_key_exists($i, $parametersReflection)) {
                 $paramphpdocType = $parametersReflection[$i]->getPhpDocType();
-                if (!$paramphpdocType instanceof MixedType) {
+                if (! $paramphpdocType instanceof MixedType) {
                     $phpdocType = $paramphpdocType;
                 }
             }
