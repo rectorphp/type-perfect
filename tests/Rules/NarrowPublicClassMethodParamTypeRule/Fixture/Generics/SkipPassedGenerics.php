@@ -15,10 +15,10 @@ class User
     public function doFoo(GenericA $g):void
     {
     }
+
+    /** @param GenericA<string> $g */
+    function doBar($g):void {
+        $this->doFoo($g);
+    }
 }
 
-/** @param GenericA<string> $g */
-function doFoo($g):void {
-    $user = new User();
-    $user->doFoo($g);
-}
