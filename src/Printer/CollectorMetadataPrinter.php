@@ -88,7 +88,7 @@ final readonly class CollectorMetadataPrinter
         return implode('|', $stringArgTypes);
     }
 
-    public function printParamTypesToString(ClassMethod $classMethod, ?string $className): string
+    public function printParamTypesToString(ClassMethod $classMethod, string $className): string
     {
         $printedParamTypes = [];
         foreach ($classMethod->params as $param) {
