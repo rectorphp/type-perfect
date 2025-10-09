@@ -14,8 +14,11 @@ use Rector\TypePerfect\ValueObject\MethodCallReference;
 
 final class ClassMethodCallReferenceResolver
 {
+    /**
+     * @param \PhpParser\Node\Expr\MethodCall|\PHPStan\Node\MethodCallableNode $methodCallOrMethodCallable
+     */
     public function resolve(
-        MethodCall|MethodCallableNode $methodCallOrMethodCallable,
+        $methodCallOrMethodCallable,
         Scope $scope,
         bool $allowThisType
     ): ?MethodCallReference {

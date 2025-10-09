@@ -17,14 +17,30 @@ use Rector\TypePerfect\Printer\CollectorMetadataPrinter;
 /**
  * @implements Collector<ClassMethod, array{class-string, string, string, int}|null>
  */
-final readonly class PublicClassMethodParamTypesCollector implements Collector
+final class PublicClassMethodParamTypesCollector implements Collector
 {
-    public function __construct(
-        private ApiDocStmtAnalyzer $apiDocStmtAnalyzer,
-        private PublicClassMethodMatcher $publicClassMethodMatcher,
-        private CollectorMetadataPrinter $collectorMetadataPrinter,
-        private Configuration $configuration
-    ) {
+    /**
+     * @readonly
+     */
+    private ApiDocStmtAnalyzer $apiDocStmtAnalyzer;
+    /**
+     * @readonly
+     */
+    private PublicClassMethodMatcher $publicClassMethodMatcher;
+    /**
+     * @readonly
+     */
+    private CollectorMetadataPrinter $collectorMetadataPrinter;
+    /**
+     * @readonly
+     */
+    private Configuration $configuration;
+    public function __construct(ApiDocStmtAnalyzer $apiDocStmtAnalyzer, PublicClassMethodMatcher $publicClassMethodMatcher, CollectorMetadataPrinter $collectorMetadataPrinter, Configuration $configuration)
+    {
+        $this->apiDocStmtAnalyzer = $apiDocStmtAnalyzer;
+        $this->publicClassMethodMatcher = $publicClassMethodMatcher;
+        $this->collectorMetadataPrinter = $collectorMetadataPrinter;
+        $this->configuration = $configuration;
     }
 
     public function getNodeType(): string
