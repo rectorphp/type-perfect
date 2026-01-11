@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Rector\TypePerfect\Matcher\Collector;
 
+use PHPUnit\Framework\TestCase;
 use PhpParser\Comment\Doc;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Reflection\ClassReflection;
@@ -14,7 +15,7 @@ final class PublicClassMethodMatcher
      * @var string[]
      */
     private const SKIPPED_TYPES = [
-        'PHPUnit\Framework\TestCase',
+        TestCase::class,
         'Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator',
     ];
 
