@@ -5,7 +5,8 @@
     "license": "MIT",
     "require": {
         "php": "^7.4|^8.0",
-        "phpstan/phpstan": "^2.1.14"
+        "phpstan/phpstan": "^2.1.14",
+        "webmozart/assert": "^1.11 || ^2.1"
     },
     "autoload": {
         "psr-4": {
