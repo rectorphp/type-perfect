@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Rector\TypePerfect\Matcher\Collector;
 
-use PHPUnit\Framework\TestCase;
 use PhpParser\Comment\Doc;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Reflection\ClassReflection;
+use PHPUnit\Framework\TestCase;
 
 final class PublicClassMethodMatcher
 {
