@@ -19,8 +19,4 @@ return RectorConfig::configure()
     )
     ->withPaths([__DIR__ . '/config', __DIR__ . '/src', __DIR__ . '/tests'])
     ->withImportNames(removeUnusedImports: true)
-    ->withSkip([
-        '*/Source/*',
-        '*/Fixture/*',
-        StringClassNameToClassConstantRector::class,
-    ]);
+    ->withSkip(['*/Source/*', '*/Fixture/*', StringClassNameToClassConstantRector::class]);
