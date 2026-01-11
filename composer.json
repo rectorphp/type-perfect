@@ -6,7 +6,7 @@
     "require": {
         "php": "^8.2",
         "phpstan/phpstan": "^2.1.30",
-        "webmozart/assert": "^1.11"
+        "webmozart/assert": "^2.1"
     },
     "require-dev": {
         "nikic/php-parser": "^5.6",
