@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
+use Rector\Php55\Rector\String_\StringClassNameToClassConstantRector;
 
 return RectorConfig::configure()
     ->withPhpSets()
@@ -18,4 +19,8 @@ return RectorConfig::configure()
     )
     ->withPaths([__DIR__ . '/config', __DIR__ . '/src', __DIR__ . '/tests'])
     ->withImportNames(removeUnusedImports: true)
-    ->withSkip(['*/Source/*', '*/Fixture/*']);
+    ->withSkip([
+        '*/Source/*',
+        '*/Fixture/*',
+        StringClassNameToClassConstantRector::class,
+    ]);
