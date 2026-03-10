@@ -30,6 +30,7 @@ final class NoArrayAccessOnObjectRule implements Rule
         'SplFixedArray',
         'SimpleXMLElement',
         'Iterator',
+        'WeakMap',
         'Aws\ResultInterface',
         'Symfony\Component\Form\FormInterface',
         'Symfony\Component\OptionsResolver\Options',
