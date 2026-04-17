@@ -160,6 +160,14 @@ final class NarrowPublicClassMethodParamTypeRuleTest extends RuleTestCase
 
         $argErrorMessage = sprintf(NarrowPublicClassMethodParamTypeRule::ERROR_MESSAGE, 'bool');
         yield [[__DIR__ . '/Fixture/ExplicitlyNullableParams.php'], [[$argErrorMessage, 9]]];
+
+        // skip generics
+        yield [[
+            __DIR__ . '/Fixture/Generics/SkipSameGeneric.php',
+            __DIR__ . '/Source/SkipSameGeneric/MyGroup.php',
+            __DIR__ . '/Source/SkipSameGeneric/MyIterator.php',
+            __DIR__ . '/Source/SkipSameGeneric/MyService.php',
+        ], []];
     }
 
     /**

@@ -19,6 +19,7 @@ use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\ExtendedMethodReflection;
 use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Type\ClosureType;
+use PHPStan\Type\Generic\GenericObjectType;
 use PHPStan\Type\IntegerRangeType;
 use PHPStan\Type\IntersectionType;
 use PHPStan\Type\MixedType;
@@ -62,6 +63,10 @@ final readonly class CollectorMetadataPrinter
             }
 
             if ($argType instanceof IntersectionType) {
+                return ResolvedTypes::UNKNOWN_TYPES;
+            }
+
+            if ($argType instanceof GenericObjectType) {
                 return ResolvedTypes::UNKNOWN_TYPES;
             }
 
