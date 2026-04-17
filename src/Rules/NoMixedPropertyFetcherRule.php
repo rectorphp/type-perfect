@@ -18,17 +18,25 @@ use Rector\TypePerfect\Configuration;
  * @see \Rector\TypePerfect\Tests\Rules\NoMixedPropertyFetcherRule\NoMixedPropertyFetcherRuleTest
  * @implements Rule<PropertyFetch>
  */
-final readonly class NoMixedPropertyFetcherRule implements Rule
+final class NoMixedPropertyFetcherRule implements Rule
 {
+    /**
+     * @readonly
+     */
+    private Printer $printer;
+    /**
+     * @readonly
+     */
+    private Configuration $configuration;
     /**
      * @var string
      */
     public const ERROR_MESSAGE = 'Mixed property fetch in a "%s->..." can skip important errors. Make sure the type is known';
 
-    public function __construct(
-        private Printer $printer,
-        private Configuration $configuration,
-    ) {
+    public function __construct(Printer $printer, Configuration $configuration)
+    {
+        $this->printer = $printer;
+        $this->configuration = $configuration;
     }
 
     /**
