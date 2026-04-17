@@ -25,6 +25,7 @@ use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\ThisType;
 use PHPStan\Type\Type;
+use PHPStan\Type\Generic\GenericObjectType;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\UnionType as PHPStanUnionType;
 use PHPStan\Type\VerbosityLevel;
@@ -62,6 +63,10 @@ final readonly class CollectorMetadataPrinter
             }
 
             if ($argType instanceof IntersectionType) {
+                return ResolvedTypes::UNKNOWN_TYPES;
+            }
+
+            if ($argType instanceof GenericObjectType) {
                 return ResolvedTypes::UNKNOWN_TYPES;
             }
 
