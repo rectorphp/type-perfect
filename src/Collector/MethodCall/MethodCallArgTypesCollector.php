@@ -16,7 +16,7 @@ use Rector\TypePerfect\Printer\CollectorMetadataPrinter;
 use Rector\TypePerfect\ValueObject\MethodCallReference;
 
 /**
- * @implements Collector<MethodCall, array<string>|null>
+ * @implements Collector<MethodCall, array{string, string}>
  */
 final readonly class MethodCallArgTypesCollector implements Collector
 {
