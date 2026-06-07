@@ -15,7 +15,7 @@ use Rector\TypePerfect\PhpDoc\ApiDocStmtAnalyzer;
 use Rector\TypePerfect\Printer\CollectorMetadataPrinter;
 
 /**
- * @implements Collector<ClassMethod, array{class-string, string, string, int}|null>
+ * @implements Collector<ClassMethod, array{class-string, string, string, int}>
  */
 final readonly class PublicClassMethodParamTypesCollector implements Collector
 {
