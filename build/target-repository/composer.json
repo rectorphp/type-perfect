@@ -1,8 +1,8 @@
 {
-    "name": "rector/type-perfect",
+    "name": "anywherephp/type-perfect",
     "type": "phpstan-extension",
     "description": "Next level type declaration checks",
-    "license": "MIT",
+    "license": "proprietary",
     "require": {
         "php": "^7.4|^8.0",
         "phpstan/phpstan": "^2.1.14",
