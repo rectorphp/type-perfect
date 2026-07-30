@@ -2,6 +2,18 @@
 
 [![Downloads](https://img.shields.io/packagist/dt/rector/type-perfect.svg?style=flat-square)](https://packagist.org/packages/rector/type-perfect/stats)
 
+> [!WARNING]
+> **This package is deprecated and no longer maintained.**
+>
+> Its rules have been merged into [tomasvotruba/type-coverage](https://github.com/TomasVotruba/type-coverage) since version 2.3.0. Use that package instead:
+>
+> ```bash
+> composer remove rector/type-perfect --dev
+> composer require tomasvotruba/type-coverage --dev
+> ```
+>
+> See [How to switch](#how-to-switch) below.
+
 Next level type declaration check PHPStan rules.
 
 We use these sets to improve code quality of our clients' code beyond PHPStan features.
@@ -14,7 +26,54 @@ If you care about code quality and type safety, add these 10 rules to your CI.
 
 <br>
 
+## How to switch
+
+### 1. Swap the package
+
+```diff
+ "require-dev": {
+-    "rector/type-perfect": "^2.1"
++    "tomasvotruba/type-coverage": "^2.3"
+ }
+```
+
+Type Coverage requires PHP `^8.4` (Type Perfect required `^8.2`).
+
+If you already use `tomasvotruba/type-coverage`, only remove `rector/type-perfect` — keeping both loads every rule twice.
+
+### 2. Keep your `ignoreErrors` as they are
+
+Rules keep the `Rector\TypePerfect\` namespace in Type Coverage, so existing ignore patterns and baselines still match. The extension is registered by [`phpstan/extension-installer`](https://github.com/phpstan/extension-installer#usage), so no `includes` change is needed either.
+
+### 3. Enable the rules that used to be on by default
+
+`NoParamTypeRemovalRule`, `NoIssetOnObjectRule` and `NoEmptyOnObjectRule` ran right after install here. In Type Coverage they're opt-in like the rest, one parameter each:
+
+```diff
+ parameters:
+     type_perfect:
+         narrow_param: true
+         narrow_return: true
+         no_mixed_property: true
+         no_mixed_caller: true
+         null_over_false: true
++        no_param_type_removal: true
++        no_isset_on_object: true
++        no_empty_on_object: true
+```
+
+Every other parameter name is unchanged.
+
+### Not carried over
+
+* **`NoArrayAccessOnObjectRule`** — the `$object['key']` over `$object->getKey()` check is not part of Type Coverage. If you rely on it, pin `rector/type-perfect` `2.2.0` next to Type Coverage and keep only that rule enabled.
+* Two fixes released here after the merge are not in Type Coverage yet: the `NarrowPublicClassMethodParamTypeRule` generic-object false-positive ([#74](https://github.com/rectorphp/type-perfect/pull/74)) and the Symfony DomCrawler skip in `NoArrayAccessOnObjectRule` ([#77](https://github.com/rectorphp/type-perfect/pull/77)).
+
+<br>
+
 ## Install
+
+*This package is deprecated — install [tomasvotruba/type-coverage](https://github.com/TomasVotruba/type-coverage) instead. The docs below are kept as reference for the rules.*
 
 ```bash
 composer require rector/type-perfect --dev

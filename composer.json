@@ -1,8 +1,9 @@
 {
     "name": "rector/type-perfect",
     "type": "phpstan-extension",
-    "description": "Next level type declaration checks",
+    "description": "Next level type declaration checks - DEPRECATED, merged into tomasvotruba/type-coverage",
     "license": "MIT",
+    "abandoned": "tomasvotruba/type-coverage",
     "require": {
         "php": "^8.2",
         "phpstan/phpstan": "^2.1.30",
